@@ -68,7 +68,7 @@ export default function ReportsPage() {
     // Header
     doc.setFontSize(20)
     doc.setTextColor(10, 107, 94) // #0a6b5e
-    doc.text('meta-aware', margin, y)
+    doc.text('meta aware', margin, y)
 
     y += 10
     doc.setFontSize(14)
