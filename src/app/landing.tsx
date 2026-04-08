@@ -143,8 +143,7 @@ export default function HomePage() {
       <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto text-center">
           <Image src="/logo.png" alt="meta aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3 mix-blend-multiply" />
-          <p className="text-sm text-gray-400 mb-1">© {new Date().getFullYear()} meta aware™. All rights reserved.</p>
-          <p className="text-xs text-gray-300 mb-3">An entity of Spheronaut™</p>
+          <p className="text-sm text-gray-400 mb-3">© {new Date().getFullYear()} meta aware™. All rights reserved. · An entity of Spheronaut™</p>
           <p className="text-xs text-gray-300 max-w-lg mx-auto">
             meta aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
           </p>
