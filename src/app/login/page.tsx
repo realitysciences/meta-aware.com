@@ -34,7 +34,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/"><Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto mx-auto" /></Link>
+          <Link href="/"><Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto mx-auto mix-blend-multiply" /></Link>
           <p className="text-gray-500 mt-2 text-sm">Sign in to your account</p>
         </div>
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-8 space-y-4">
