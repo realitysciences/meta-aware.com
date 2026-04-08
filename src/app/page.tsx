@@ -7,9 +7,9 @@ export default function HomePage() {
       <div className="text-center max-w-lg">
         <Image src="/logo.png" alt="meta-aware" width={280} height={95} className="h-24 w-auto mx-auto mb-10" />
 
-        <div className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
-          ReLoHu Methodology
-        </div>
+        <a href="https://www.relohu.com" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase hover:bg-[#d0f0e8] transition-colors">
+          ReLoHu Methodology ↗
+        </a>
 
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
           Something meaningful<br />
