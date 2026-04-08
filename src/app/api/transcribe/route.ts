@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 const ASSEMBLYAI_API = 'https://api.assemblyai.com/v2'
-const API_KEY = process.env.ASSEMBLYAI_API_KEY || ''
 
 // POST: upload audio + submit transcription job → returns { transcriptId }
 export async function POST(request: NextRequest) {
   try {
+    const API_KEY = process.env.ASSEMBLYAI_API_KEY || ''
     if (!API_KEY) {
       return NextResponse.json({ error: 'AssemblyAI API key not configured' }, { status: 500 })
     }
@@ -28,13 +28,16 @@ export async function POST(request: NextRequest) {
       body: audioBuffer,
     })
 
+    const uploadText = await uploadResponse.text()
     if (!uploadResponse.ok) {
-      const err = await uploadResponse.text()
-      console.error('AssemblyAI upload error:', err)
-      return NextResponse.json({ error: 'Failed to upload audio' }, { status: 500 })
+      console.error('AssemblyAI upload error:', uploadText)
+      return NextResponse.json({ error: `Upload failed: ${uploadText}` }, { status: 500 })
     }
 
-    const { upload_url } = await uploadResponse.json()
+    const { upload_url } = JSON.parse(uploadText)
+    if (!upload_url) {
+      return NextResponse.json({ error: 'No upload URL returned from AssemblyAI' }, { status: 500 })
+    }
 
     // Submit transcription job (returns immediately with an ID)
     const transcriptResponse = await fetch(`${ASSEMBLYAI_API}/transcript`, {
@@ -43,19 +46,20 @@ export async function POST(request: NextRequest) {
         'authorization': API_KEY,
         'content-type': 'application/json',
       },
-      body: JSON.stringify({
-        audio_url: upload_url,
-        speaker_labels: true,
-      }),
+      body: JSON.stringify({ audio_url: upload_url }),
     })
 
+    const transcriptText = await transcriptResponse.text()
     if (!transcriptResponse.ok) {
-      const err = await transcriptResponse.text()
-      console.error('AssemblyAI submit error:', err)
-      return NextResponse.json({ error: 'Failed to submit transcription' }, { status: 500 })
+      console.error('AssemblyAI submit error:', transcriptText)
+      return NextResponse.json({ error: `Submit failed: ${transcriptText}` }, { status: 500 })
     }
 
-    const { id: transcriptId } = await transcriptResponse.json()
+    const { id: transcriptId } = JSON.parse(transcriptText)
+    if (!transcriptId) {
+      return NextResponse.json({ error: 'No transcript ID returned from AssemblyAI' }, { status: 500 })
+    }
+
     return NextResponse.json({ transcriptId })
   } catch (error) {
     console.error('Transcription submit error:', error)
@@ -66,6 +70,7 @@ export async function POST(request: NextRequest) {
 // GET: check status of a transcription job → returns result or { status }
 export async function GET(request: NextRequest) {
   try {
+    const API_KEY = process.env.ASSEMBLYAI_API_KEY || ''
     if (!API_KEY) {
       return NextResponse.json({ error: 'AssemblyAI API key not configured' }, { status: 500 })
     }
