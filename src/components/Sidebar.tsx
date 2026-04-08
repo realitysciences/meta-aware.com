@@ -41,7 +41,7 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
     <aside className="w-64 bg-[#0f1f1c] min-h-screen flex flex-col fixed left-0 top-0 bottom-0">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-white/10">
-        <Image src="/logo.png" alt="meta-aware" width={160} height={54} className="h-14 w-auto" />
+        <Image src="/logo.png" alt="meta aware" width={160} height={54} className="h-14 w-auto" />
       </div>
 
       {/* Navigation */}

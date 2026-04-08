@@ -8,7 +8,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'meta-aware | Psychological Terrain Mapping',
+  title: 'meta aware | Psychological Terrain Mapping',
   description: 'The platform for psychological terrain mapping using the ReLoHu methodology.',
   icons: {
     icon: '/logo.png',

@@ -7,7 +7,7 @@ export default function HomePage() {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
-          <Image src="/logo.png" alt="meta-aware" width={280} height={95} className="h-20 w-auto" />
+          <Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto" />
           <div className="flex items-center gap-4">
             <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900">Sign In</Link>
             <Link href="/signup" className="text-sm bg-[#0a6b5e] text-white px-4 py-2 rounded-lg hover:bg-[#0d7f6f] transition-colors">Request Access</Link>
@@ -26,7 +26,7 @@ export default function HomePage() {
             <span className="text-[#0a6b5e]">happening in the room.</span>
           </h1>
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            meta-aware helps coaches, somatic practitioners, and facilitators record sessions, map psychological terrain in real time, and generate deep multi-lens analyses — so the insight doesn&apos;t stay in the session.
+            meta aware helps coaches, somatic practitioners, and facilitators record sessions, map psychological terrain in real time, and generate deep multi-lens analyses — so the insight doesn&apos;t stay in the session.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/signup" className="w-full sm:w-auto bg-[#0a6b5e] text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-[#0d7f6f] transition-colors text-center">
@@ -51,7 +51,7 @@ export default function HomePage() {
             Technology has transformed medicine, law, education — and now it&apos;s ready to transform the room where the real work happens. Not to replace the practitioner. To amplify what they already see. To surface what&apos;s hidden in plain sight. To turn a session into a map.
           </p>
           <p className="text-[#6dd9b8] font-semibold text-lg mt-8">
-            That&apos;s what meta-aware™ is built for.
+            That&apos;s what meta aware™ is built for.
           </p>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function HomePage() {
             ))}
           </div>
           <p className="text-center text-xs text-gray-400 mt-8">
-            meta-aware is a practitioner productivity tool, not a clinical or diagnostic platform. It is not intended for use in licensed psychotherapy or medical practice.
+            meta aware is a practitioner productivity tool, not a clinical or diagnostic platform. It is not intended for use in licensed psychotherapy or medical practice.
           </p>
         </div>
       </section>
@@ -142,10 +142,10 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto text-center">
-          <Image src="/logo.png" alt="meta-aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3" />
-          <p className="text-sm text-gray-400 mb-2">© {new Date().getFullYear()} meta-aware™. All rights reserved.</p>
+          <Image src="/logo.png" alt="meta aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3" />
+          <p className="text-sm text-gray-400 mb-2">© {new Date().getFullYear()} meta aware™. All rights reserved.</p>
           <p className="text-xs text-gray-300 max-w-lg mx-auto">
-            meta-aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
+            meta aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
           </p>
         </div>
       </footer>

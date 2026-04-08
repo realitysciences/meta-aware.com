@@ -6,7 +6,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-sm text-center">
         <Link href="/">
-          <Image src="/logo.png" alt="meta-aware" width={120} height={120} className="h-20 w-auto mx-auto mb-8" />
+          <Image src="/logo.png" alt="meta aware" width={120} height={120} className="h-20 w-auto mx-auto mb-8" />
         </Link>
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
           <div className="w-12 h-12 bg-[#0a6b5e]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -16,7 +16,7 @@ export default function SignupPage() {
           </div>
           <h1 className="text-xl font-bold text-gray-900 mb-2">Coming soon</h1>
           <p className="text-sm text-gray-500 leading-relaxed mb-6">
-            meta-aware is currently in private access. New accounts are not available yet.
+            meta aware is currently in private access. New accounts are not available yet.
           </p>
           <Link
             href="/login"
@@ -26,7 +26,7 @@ export default function SignupPage() {
           </Link>
         </div>
         <p className="text-xs text-gray-400 mt-6">
-          &copy; {new Date().getFullYear()} meta-aware. All rights reserved.
+          &copy; {new Date().getFullYear()} meta aware. All rights reserved.
         </p>
       </div>
     </div>
