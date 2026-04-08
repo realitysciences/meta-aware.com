@@ -28,7 +28,7 @@ export default function HomePage() {
         </Link>
       </div>
 
-      <p className="absolute bottom-8 text-xs text-gray-300">
+      <p className="mt-16 text-xs text-gray-300">
         © {new Date().getFullYear()} meta-aware. All rights reserved.
       </p>
     </div>
