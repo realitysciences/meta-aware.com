@@ -50,7 +50,7 @@ export default function HomePage() {
             {[
               { step: '01', title: 'Record Your Session', desc: 'Capture audio directly in the browser with a built-in consent flow. Pause, resume, or upload an existing recording.' },
               { step: '02', title: 'Auto-Transcription', desc: 'AssemblyAI transcribes your session with speaker labels, separating Practitioner and Client turns automatically.' },
-              { step: '03', title: 'Terrain Analysis', desc: 'Run the transcript through 8 psychological lenses — ReLoHu, IFS, Jungian, Attachment, Enneagram, and more — powered by Claude AI.' },
+              { step: '03', title: 'Terrain Analysis', desc: 'Run the transcript through a curated set of psychological lenses, each surfacing a different dimension of the terrain. Powered by Claude AI.' },
             ].map(item => (
               <div key={item.step} className="relative p-6 border border-gray-100 rounded-xl hover:border-[#0a6b5e]/30 hover:shadow-sm transition-all">
                 <div className="text-4xl font-bold text-[#e8f7f3] mb-4">{item.step}</div>
@@ -99,7 +99,7 @@ export default function HomePage() {
             {[
               { title: 'Session Recording', desc: 'Browser-based audio capture with consent flow, pause/resume, crash-safe backup, and support for uploaded Zoom or voice recordings.' },
               { title: 'AI Transcription', desc: 'Automatic transcription with speaker diarization via AssemblyAI — know exactly who said what, with no manual effort.' },
-              { title: 'ReLoHu Terrain Mapping', desc: '8 psychological lenses including ReLoHu, Jungian, IFS, Attachment, Enneagram, and more. Each analysis is tailored to the specific framework.' },
+              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session. Every analysis is tailored to its framework.' },
               { title: 'Client Reports', desc: 'Generate PDF reports from analyses to track patterns over time, prepare for supervision, or deepen your own reflection.' },
             ].map(item => (
               <div key={item.title} className="p-6 rounded-xl border border-gray-100">
