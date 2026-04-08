@@ -7,9 +7,14 @@ export default function HomePage() {
       <div className="text-center max-w-lg">
         <Image src="/logo.png" alt="meta-aware" width={280} height={95} className="h-24 w-auto mx-auto mb-10" />
 
-        <a href="https://www.relohu.com" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase hover:bg-[#d0f0e8] transition-colors">
-          ReLoHu Methodology ↗
-        </a>
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <a href="https://www.relohu.com" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full tracking-wide uppercase hover:bg-[#d0f0e8] transition-colors">
+            ReLoHu Methodology ↗
+          </a>
+          <span className="inline-block bg-gray-100 text-gray-500 text-xs font-semibold px-3 py-1 rounded-full tracking-wide uppercase">
+            TranscEngine Technology
+          </span>
+        </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
           Something meaningful<br />
@@ -17,7 +22,7 @@ export default function HomePage() {
         </h1>
 
         <p className="text-gray-500 text-lg mb-10 leading-relaxed">
-          meta-aware is a platform for psychological terrain mapping. We&apos;re putting the finishing touches on something we&apos;re proud of.
+          meta-aware is a platform for psychological terrain mapping, powered by ReLoHu methodology and TranscEngine analysis technology.
         </p>
 
         <Link

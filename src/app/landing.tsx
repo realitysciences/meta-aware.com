@@ -99,7 +99,7 @@ export default function HomePage() {
             {[
               { title: 'Session Recording', desc: 'Browser-based audio capture with consent flow, pause/resume, crash-safe backup, and support for uploaded Zoom or voice recordings.' },
               { title: 'AI Transcription', desc: 'Automatic transcription with speaker diarization via AssemblyAI — know exactly who said what, with no manual effort.' },
-              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session. Every analysis is tailored to its framework.' },
+              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session — extracted from your transcripts using TranscEngine analysis technology.' },
               { title: 'Client Reports', desc: 'Generate PDF reports from analyses to track patterns over time, prepare for supervision, or deepen your own reflection.' },
             ].map(item => (
               <div key={item.title} className="p-6 rounded-xl border border-gray-100">
