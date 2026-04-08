@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         audio_url: upload_url,
-        speech_model: 'universal',
+        speech_models: ['universal-3-pro', 'universal-2'],
         speaker_labels: true,
       }),
     })
