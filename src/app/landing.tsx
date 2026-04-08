@@ -7,7 +7,7 @@ export default function HomePage() {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
-          <Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto" />
+          <Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto mix-blend-multiply" />
           <div className="flex items-center gap-4">
             <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900">Sign In</Link>
             <Link href="/signup" className="text-sm bg-[#0a6b5e] text-white px-4 py-2 rounded-lg hover:bg-[#0d7f6f] transition-colors">Request Access</Link>
@@ -142,7 +142,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto text-center">
-          <Image src="/logo.png" alt="meta aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3" />
+          <Image src="/logo.png" alt="meta aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3 mix-blend-multiply" />
           <p className="text-sm text-gray-400 mb-2">© {new Date().getFullYear()} meta aware™. All rights reserved.</p>
           <p className="text-xs text-gray-300 max-w-lg mx-auto">
             meta aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
