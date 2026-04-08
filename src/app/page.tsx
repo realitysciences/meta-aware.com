@@ -34,7 +34,8 @@ export default function HomePage() {
       </div>
 
       <p className="mt-16 text-xs text-gray-300">
-        © {new Date().getFullYear()} meta aware™. All rights reserved.
+        © {new Date().getFullYear()} meta aware™. All rights reserved.<br />
+        An entity of Spheronaut™
       </p>
     </div>
   )
