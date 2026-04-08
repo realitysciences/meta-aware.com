@@ -1,11 +1,15 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { LENSES, LENS_IDS } from '@/lib/lenses'
 import type { LensId } from '@/lib/lenses'
-import { Mic, Pause, Square, Play, ChevronRight, Check } from 'lucide-react'
+import { Mic, Pause, Square, Play, ChevronRight, Check, Upload, AlertTriangle, X } from 'lucide-react'
+
+const DB_NAME = 'meta-aware-recordings'
+const DB_STORE = 'chunks'
+const DB_KEY = 'active-session'
 
 interface Client {
   id: string
@@ -18,6 +22,45 @@ interface Client {
 interface TranscriptSegment {
   speaker: string
   text: string
+}
+
+// IndexedDB helpers for crash-safe chunk storage
+async function openDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1)
+    req.onupgradeneeded = () => req.result.createObjectStore(DB_STORE)
+    req.onsuccess = () => resolve(req.result)
+    req.onerror = () => reject(req.error)
+  })
+}
+
+async function saveChunksToDB(chunks: Blob[], timer: number): Promise<void> {
+  try {
+    const db = await openDB()
+    const tx = db.transaction(DB_STORE, 'readwrite')
+    const store = tx.objectStore(DB_STORE)
+    store.put({ chunks, timer, savedAt: Date.now() }, DB_KEY)
+  } catch { /* silently fail — recording continues regardless */ }
+}
+
+async function loadChunksFromDB(): Promise<{ chunks: Blob[]; timer: number; savedAt: number } | null> {
+  try {
+    const db = await openDB()
+    return new Promise((resolve) => {
+      const tx = db.transaction(DB_STORE, 'readonly')
+      const req = tx.objectStore(DB_STORE).get(DB_KEY)
+      req.onsuccess = () => resolve(req.result || null)
+      req.onerror = () => resolve(null)
+    })
+  } catch { return null }
+}
+
+async function clearChunksFromDB(): Promise<void> {
+  try {
+    const db = await openDB()
+    const tx = db.transaction(DB_STORE, 'readwrite')
+    tx.objectStore(DB_STORE).delete(DB_KEY)
+  } catch { /* ignore */ }
 }
 
 export default function NewSessionPage() {
@@ -39,6 +82,16 @@ export default function NewSessionPage() {
   const chunksRef = useRef<Blob[]>([])
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
+  const backupIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Recovery state
+  const [recoveredChunks, setRecoveredChunks] = useState<Blob[] | null>(null)
+  const [recoveredTimer, setRecoveredTimer] = useState(0)
+  const [showRecovery, setShowRecovery] = useState(false)
+
+  // Upload fallback state
+  const [showUpload, setShowUpload] = useState(false)
+  const uploadInputRef = useRef<HTMLInputElement>(null)
 
   // Transcription state
   const [transcribing, setTranscribing] = useState(false)
@@ -53,7 +106,7 @@ export default function NewSessionPage() {
   const [analysisError, setAnalysisError] = useState('')
   const [savedSessionId, setSavedSessionId] = useState<string | null>(null)
 
-  // Load clients
+  // Load clients + check for recovered recording
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -67,6 +120,21 @@ export default function NewSessionPage() {
             if (found) { setSelectedClient(found); setStep(2) }
           }
         })
+    })
+
+    // Check for a crashed/interrupted recording
+    loadChunksFromDB().then(saved => {
+      if (saved && saved.chunks.length > 0) {
+        // Only show recovery if saved in the last 24 hours
+        const ageHours = (Date.now() - saved.savedAt) / 1000 / 3600
+        if (ageHours < 24) {
+          setRecoveredChunks(saved.chunks)
+          setRecoveredTimer(saved.timer)
+          setShowRecovery(true)
+        } else {
+          clearChunksFromDB()
+        }
+      }
     })
   }, [preselectedClientId])
 
@@ -93,15 +161,25 @@ export default function NewSessionPage() {
       const recorder = new MediaRecorder(stream)
       mediaRecorderRef.current = recorder
       chunksRef.current = []
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data) }
+
+      recorder.ondataavailable = e => {
+        if (e.data.size > 0) chunksRef.current.push(e.data)
+      }
+
       recorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
         setAudioBlob(blob)
       }
+
       recorder.start(1000)
       setRecording(true)
       setPaused(false)
       setTimer(0)
+
+      // Auto-backup to IndexedDB every 60 seconds
+      backupIntervalRef.current = setInterval(() => {
+        saveChunksToDB([...chunksRef.current], timer)
+      }, 60_000)
     } catch {
       alert('Could not access microphone. Please allow microphone access.')
     }
@@ -127,11 +205,37 @@ export default function NewSessionPage() {
       streamRef.current?.getTracks().forEach(t => t.stop())
       setRecording(false)
       setPaused(false)
+      if (backupIntervalRef.current) clearInterval(backupIntervalRef.current)
       setStep(4)
     }
   }
 
-  // Auto-transcribe after recording stops
+  // Recover a crashed session
+  function recoverSession() {
+    if (!recoveredChunks) return
+    const blob = new Blob(recoveredChunks, { type: 'audio/webm' })
+    setAudioBlob(blob)
+    setTimer(recoveredTimer)
+    setShowRecovery(false)
+    setStep(4)
+  }
+
+  function dismissRecovery() {
+    clearChunksFromDB()
+    setShowRecovery(false)
+  }
+
+  // Handle uploaded audio file
+  function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const blob = new Blob([file], { type: file.type })
+    setAudioBlob(blob)
+    setShowUpload(false)
+    setStep(4)
+  }
+
+  // Auto-transcribe after recording stops or file uploaded
   useEffect(() => {
     if (step === 4 && audioBlob) {
       transcribeAudio()
@@ -144,7 +248,6 @@ export default function NewSessionPage() {
     setTranscriptError('')
 
     try {
-      // Step 1: upload audio + submit job
       const formData = new FormData()
       formData.append('audio', audioBlob, 'session.webm')
 
@@ -159,7 +262,7 @@ export default function NewSessionPage() {
 
       const { transcriptId } = submitData
 
-      // Step 2: poll for completion (browser-side, no server timeout)
+      // Poll from the browser — no server timeout risk
       const maxAttempts = 120 // 10 minutes max
       for (let i = 0; i < maxAttempts; i++) {
         await new Promise(resolve => setTimeout(resolve, 5000))
@@ -177,6 +280,7 @@ export default function NewSessionPage() {
           setTranscript(data.transcript || [])
           setTranscriptMeta({ word_count: data.word_count || 0, duration_seconds: data.duration_seconds || timer })
           setTranscribing(false)
+          await clearChunksFromDB() // clean up backup once transcribed
           await saveSession(data.transcript || [], data.duration_seconds || timer)
           setStep(5)
           return
@@ -187,7 +291,6 @@ export default function NewSessionPage() {
           setTranscribing(false)
           return
         }
-        // status is 'queued' or 'processing' — keep polling
       }
 
       setTranscriptError('Transcription timed out. Please try again.')
@@ -205,7 +308,6 @@ export default function NewSessionPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    // Get next session number for this client
     const { count } = await supabase.from('sessions').select('*', { count: 'exact', head: true })
       .eq('client_id', selectedClient.id)
 
@@ -249,6 +351,37 @@ export default function NewSessionPage() {
 
   return (
     <div className="p-8 max-w-2xl mx-auto">
+
+      {/* Recovery banner */}
+      {showRecovery && (
+        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle size={18} className="text-amber-500 flex-shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <div className="text-sm font-semibold text-amber-800 mb-1">Interrupted recording found</div>
+            <div className="text-xs text-amber-700 mb-3">
+              We found a recording backup ({formatTime(recoveredTimer)}) from a previous session that didn't finish. Would you like to submit it for transcription?
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={recoverSession}
+                className="text-xs bg-amber-500 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-600"
+              >
+                Recover & transcribe
+              </button>
+              <button
+                onClick={dismissRecovery}
+                className="text-xs border border-amber-300 text-amber-700 px-3 py-1.5 rounded-lg font-medium hover:bg-amber-100"
+              >
+                Discard
+              </button>
+            </div>
+          </div>
+          <button onClick={dismissRecovery} className="text-amber-400 hover:text-amber-600">
+            <X size={16} />
+          </button>
+        </div>
+      )}
+
       {/* Step indicator */}
       <div className="flex items-center gap-2 mb-8">
         {[1,2,3,4,5].map(s => (
@@ -365,13 +498,46 @@ export default function NewSessionPage() {
           </div>
 
           {!recording ? (
-            <button
-              onClick={startRecording}
-              className="flex items-center gap-2 mx-auto bg-[#0a6b5e] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#0d7f6f] transition-colors"
-            >
-              <Mic size={18} />
-              Start Recording
-            </button>
+            <div className="space-y-3">
+              <button
+                onClick={startRecording}
+                className="flex items-center gap-2 mx-auto bg-[#0a6b5e] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#0d7f6f] transition-colors"
+              >
+                <Mic size={18} />
+                Start Recording
+              </button>
+
+              {/* Upload fallback */}
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowUpload(!showUpload)}
+                  className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-1.5 mx-auto"
+                >
+                  <Upload size={13} />
+                  Upload an existing recording instead
+                </button>
+                {showUpload && (
+                  <div className="mt-3 bg-gray-50 border border-gray-200 rounded-xl p-4 text-left">
+                    <p className="text-xs text-gray-500 mb-3">
+                      Upload a Zoom recording, voice memo, or any audio file (.mp3, .mp4, .m4a, .wav, .webm)
+                    </p>
+                    <input
+                      ref={uploadInputRef}
+                      type="file"
+                      accept="audio/*,video/mp4"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                    <button
+                      onClick={() => uploadInputRef.current?.click()}
+                      className="w-full border-2 border-dashed border-gray-300 rounded-lg py-4 text-sm text-gray-500 hover:border-[#0a6b5e] hover:text-[#0a6b5e] transition-colors"
+                    >
+                      Choose file
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           ) : (
             <div className="flex items-center justify-center gap-4">
               {!paused ? (
@@ -391,6 +557,12 @@ export default function NewSessionPage() {
               </button>
             </div>
           )}
+
+          {recording && (
+            <p className="text-xs text-gray-400 mt-6">
+              Auto-saving backup every 60s — your recording is protected
+            </p>
+          )}
         </div>
       )}
 
@@ -401,7 +573,13 @@ export default function NewSessionPage() {
           <p className="text-gray-400 text-sm mb-8">This usually takes 1–3 minutes</p>
 
           {transcriptError ? (
-            <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm mb-4">{transcriptError}</div>
+            <div className="bg-red-50 border border-red-100 rounded-xl p-4 mb-4 text-left">
+              <div className="text-sm font-semibold text-red-700 mb-1">Transcription failed</div>
+              <div className="text-xs text-red-600 mb-3">{transcriptError}</div>
+              <p className="text-xs text-gray-500">
+                Your recording is safely backed up. You can close this page and try again — the backup will still be here.
+              </p>
+            </div>
           ) : (
             <>
               <div className="w-full bg-gray-100 rounded-full h-2 mb-4 overflow-hidden">
@@ -418,7 +596,6 @@ export default function NewSessionPage() {
         <div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Transcript ready</h2>
 
-          {/* Meta */}
           <div className="flex gap-4 mb-6">
             <div className="bg-white border border-gray-100 rounded-lg px-4 py-2.5 text-center">
               <div className="text-lg font-bold text-gray-900">{transcriptMeta?.word_count || 0}</div>
@@ -434,7 +611,6 @@ export default function NewSessionPage() {
             </div>
           </div>
 
-          {/* Transcript preview */}
           <div className="bg-white border border-gray-100 rounded-xl p-4 mb-6 max-h-64 overflow-y-auto">
             {transcript.slice(0, 6).map((seg, i) => (
               <div key={i} className="mb-3">
@@ -449,7 +625,6 @@ export default function NewSessionPage() {
             )}
           </div>
 
-          {/* Lens selector */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-3">Run analysis with lens</label>
             <div className="grid grid-cols-4 gap-2">
