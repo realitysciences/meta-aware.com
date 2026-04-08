@@ -39,6 +39,23 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Manifesto */}
+      <section className="py-20 px-6 bg-[#0a6b5e]">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-[#a8e6d4] text-sm font-semibold uppercase tracking-widest mb-6">It&apos;s 2026</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-6">
+            Mental health support hasn&apos;t kept pace.<br />New modalities have emerged. New methods. New language.<br />
+            <span className="text-[#6dd9b8]">But the tools practitioners use? Largely the same.</span>
+          </h2>
+          <p className="text-[#c2ede0] text-lg leading-relaxed max-w-2xl mx-auto">
+            Technology has transformed medicine, law, education — and now it&apos;s ready to transform the room where the real work happens. Not to replace the practitioner. To amplify what they already see. To surface what&apos;s hidden in plain sight. To turn a session into a map.
+          </p>
+          <p className="text-[#6dd9b8] font-semibold text-lg mt-8">
+            That&apos;s what meta-aware™ is built for.
+          </p>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section id="how-it-works" className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
