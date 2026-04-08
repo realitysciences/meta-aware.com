@@ -9,10 +9,10 @@ export default function HomePage() {
 
         <div className="flex items-center justify-center gap-2 mb-6">
           <a href="https://www.relohu.com" target="_blank" rel="noopener noreferrer" className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full tracking-wide uppercase hover:bg-[#d0f0e8] transition-colors">
-            ReLoHu Methodology ↗
+            ReLoHu™ Methodology ↗
           </a>
           <span className="inline-block bg-gray-100 text-gray-500 text-xs font-semibold px-3 py-1 rounded-full tracking-wide uppercase">
-            TranscEngine Technology
+            TranscEngine™ Technology
           </span>
         </div>
 
@@ -22,7 +22,7 @@ export default function HomePage() {
         </h1>
 
         <p className="text-gray-500 text-lg mb-10 leading-relaxed">
-          meta-aware is a platform for psychological terrain mapping, powered by ReLoHu methodology and TranscEngine analysis technology.
+          meta-aware™ is a platform for psychological terrain mapping, powered by ReLoHu™ methodology and TranscEngine™ analysis technology.
         </p>
 
         <Link
@@ -34,7 +34,7 @@ export default function HomePage() {
       </div>
 
       <p className="mt-16 text-xs text-gray-300">
-        © {new Date().getFullYear()} meta-aware. All rights reserved.
+        © {new Date().getFullYear()} meta-aware™. All rights reserved.
       </p>
     </div>
   )
