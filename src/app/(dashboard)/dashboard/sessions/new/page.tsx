@@ -143,25 +143,54 @@ export default function NewSessionPage() {
     setTranscribing(true)
     setTranscriptError('')
 
-    const formData = new FormData()
-    formData.append('audio', audioBlob, 'session.webm')
+    try {
+      // Step 1: upload audio + submit job
+      const formData = new FormData()
+      formData.append('audio', audioBlob, 'session.webm')
 
-    const res = await fetch('/api/transcribe', { method: 'POST', body: formData })
-    const data = await res.json()
+      const submitRes = await fetch('/api/transcribe', { method: 'POST', body: formData })
+      const submitData = await submitRes.json()
 
-    if (!res.ok) {
-      setTranscriptError(data.error || 'Transcription failed')
+      if (!submitRes.ok) {
+        setTranscriptError(submitData.error || 'Transcription failed')
+        setTranscribing(false)
+        return
+      }
+
+      const { transcriptId } = submitData
+
+      // Step 2: poll for completion (browser-side, no server timeout)
+      const maxAttempts = 120 // 10 minutes max
+      for (let i = 0; i < maxAttempts; i++) {
+        await new Promise(resolve => setTimeout(resolve, 5000))
+
+        const pollRes = await fetch(`/api/transcribe?id=${transcriptId}`)
+        const data = await pollRes.json()
+
+        if (data.status === 'completed') {
+          setTranscript(data.transcript || [])
+          setTranscriptMeta({ word_count: data.word_count || 0, duration_seconds: data.duration_seconds || timer })
+          setTranscribing(false)
+          await saveSession(data.transcript || [], data.duration_seconds || timer)
+          setStep(5)
+          return
+        }
+
+        if (data.status === 'error') {
+          setTranscriptError(data.error || 'Transcription failed')
+          setTranscribing(false)
+          return
+        }
+        // status is 'queued' or 'processing' — keep polling
+      }
+
+      setTranscriptError('Transcription timed out. Please try again.')
       setTranscribing(false)
-      return
+    } catch (err) {
+      console.error('Transcription error:', err)
+      setTranscriptError('Transcription failed. Please try again.')
+      setTranscribing(false)
     }
-
-    setTranscript(data.transcript || [])
-    setTranscriptMeta({ word_count: data.word_count || 0, duration_seconds: data.duration_seconds || timer })
-    setTranscribing(false)
-
-    // Save session to DB
-    await saveSession(data.transcript || [], data.duration_seconds || timer)
-    setStep(5)
   }
 
   async function saveSession(transcriptData: TranscriptSegment[], duration: number) {
