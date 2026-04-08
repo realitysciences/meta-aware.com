@@ -167,6 +167,12 @@ export default function NewSessionPage() {
         const pollRes = await fetch(`/api/transcribe?id=${transcriptId}`)
         const data = await pollRes.json()
 
+        if (!pollRes.ok) {
+          setTranscriptError(data.error || 'Failed to check transcription status')
+          setTranscribing(false)
+          return
+        }
+
         if (data.status === 'completed') {
           setTranscript(data.transcript || [])
           setTranscriptMeta({ word_count: data.word_count || 0, duration_seconds: data.duration_seconds || timer })
