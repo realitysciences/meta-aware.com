@@ -113,46 +113,12 @@ export default function HomePage() {
 
       {/* Pricing */}
       <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple Pricing</h2>
-            <p className="text-gray-500">Start free, upgrade when you need more</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <div className="bg-white p-8 rounded-xl border border-gray-200">
-              <div className="text-sm font-semibold text-gray-500 mb-2">FREE</div>
-              <div className="text-4xl font-bold text-gray-900 mb-1">$0</div>
-              <div className="text-sm text-gray-400 mb-6">forever</div>
-              <ul className="space-y-3 mb-8">
-                {['10 analyses per week', 'All 8 lenses', 'Session recording', 'AI transcription', 'Client roster'].map(f => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="text-[#1d9e75]">✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/signup" className="block w-full text-center border border-[#0a6b5e] text-[#0a6b5e] py-2.5 rounded-lg font-semibold hover:bg-[#e8f7f3] transition-colors">
-                Request Access
-              </Link>
-            </div>
-            <div className="bg-white p-8 rounded-xl border-2 border-[#0a6b5e] relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#0a6b5e] text-white text-xs font-semibold px-3 py-1 rounded-full">
-                MOST POPULAR
-              </div>
-              <div className="text-sm font-semibold text-[#0a6b5e] mb-2">PRO</div>
-              <div className="text-2xl font-bold text-gray-900 mb-1">Coming soon</div>
-              <div className="text-sm text-gray-400 mb-6">pricing announced at launch</div>
-              <ul className="space-y-3 mb-8">
-                {['Unlimited analyses', 'All 8 lenses', 'Session recording', 'AI transcription', 'Client roster', 'PDF reports', 'Priority support'].map(f => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                    <span className="text-[#1d9e75]">✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/signup" className="block w-full text-center bg-[#0a6b5e] text-white py-2.5 rounded-lg font-semibold hover:bg-[#0d7f6f] transition-colors">
-                Request Access
-              </Link>
-            </div>
-          </div>
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple Pricing</h2>
+          <p className="text-gray-500 mb-10">Plans and pricing will be announced at launch. Request access to be among the first to know.</p>
+          <Link href="/signup" className="inline-block bg-[#0a6b5e] text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-[#0d7f6f] transition-colors">
+            Request Access
+          </Link>
         </div>
       </section>
 
