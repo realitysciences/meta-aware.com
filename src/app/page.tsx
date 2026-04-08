@@ -139,8 +139,8 @@ export default function HomePage() {
                 MOST POPULAR
               </div>
               <div className="text-sm font-semibold text-[#0a6b5e] mb-2">PRO</div>
-              <div className="text-4xl font-bold text-gray-900 mb-1">$39</div>
-              <div className="text-sm text-gray-400 mb-6">per month</div>
+              <div className="text-2xl font-bold text-gray-900 mb-1">Coming soon</div>
+              <div className="text-sm text-gray-400 mb-6">pricing announced at launch</div>
               <ul className="space-y-3 mb-8">
                 {['Unlimited analyses', 'All 8 lenses', 'Session recording', 'AI transcription', 'Client roster', 'PDF reports', 'Priority support'].map(f => (
                   <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
