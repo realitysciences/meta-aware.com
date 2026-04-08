@@ -19,7 +19,7 @@ export default function HomePage() {
       <section className="pt-24 pb-20 px-6 bg-gradient-to-br from-[#e8f7f3] via-white to-white">
         <div className="max-w-4xl mx-auto text-center pt-16">
           <div className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
-            ReLoHu Methodology
+            ReLoHu™ Methodology
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
             See what&apos;s really<br />
@@ -99,7 +99,7 @@ export default function HomePage() {
             {[
               { title: 'Session Recording', desc: 'Browser-based audio capture with consent flow, pause/resume, crash-safe backup, and support for uploaded Zoom or voice recordings.' },
               { title: 'AI Transcription', desc: 'Automatic transcription with speaker diarization via AssemblyAI — know exactly who said what, with no manual effort.' },
-              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session — extracted from your transcripts using TranscEngine analysis technology.' },
+              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session — extracted from your transcripts using TranscEngine™ analysis technology.' },
               { title: 'Client Reports', desc: 'Generate PDF reports from analyses to track patterns over time, prepare for supervision, or deepen your own reflection.' },
             ].map(item => (
               <div key={item.title} className="p-6 rounded-xl border border-gray-100">
@@ -126,7 +126,7 @@ export default function HomePage() {
       <footer className="py-12 px-6 border-t border-gray-100">
         <div className="max-w-6xl mx-auto text-center">
           <Image src="/logo.png" alt="meta-aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3" />
-          <p className="text-sm text-gray-400 mb-2">© {new Date().getFullYear()} meta-aware. All rights reserved.</p>
+          <p className="text-sm text-gray-400 mb-2">© {new Date().getFullYear()} meta-aware™. All rights reserved.</p>
           <p className="text-xs text-gray-300 max-w-lg mx-auto">
             meta-aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
           </p>
