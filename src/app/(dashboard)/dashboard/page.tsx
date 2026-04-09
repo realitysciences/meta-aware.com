@@ -44,14 +44,14 @@ export default async function DashboardPage() {
   ]
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+    <div className="p-4 md:p-8">
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-xl md:text-2xl font-bold text-gray-900">Dashboard</h1>
         <p className="text-gray-400 text-sm mt-1">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
         {stats.map(stat => (
           <div key={stat.label} className="bg-white rounded-xl border border-gray-100 p-5">
             <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {/* Today's sessions */}
         <div className="bg-white rounded-xl border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-5">

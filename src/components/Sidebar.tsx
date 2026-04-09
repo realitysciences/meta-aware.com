@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, Users, FileAudio, Brain, FileText, GraduationCap, LogOut, Award } from 'lucide-react'
+import { LayoutDashboard, Users, FileAudio, Brain, FileText, GraduationCap, LogOut, Award, Menu, X } from 'lucide-react'
 
 interface SidebarProps {
   fullName: string | null
@@ -24,6 +25,12 @@ const navItems = [
 export default function Sidebar({ fullName, email, plan, certificationStatus }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Close sidebar when route changes on mobile
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
 
   async function handleSignOut() {
     const supabase = createClient()
@@ -37,11 +44,23 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
     return pathname.startsWith(href)
   }
 
-  return (
-    <aside className="w-64 bg-[#0f1f1c] min-h-screen flex flex-col fixed left-0 top-0 bottom-0">
+  const sidebarContent = (
+    <aside className={`
+      w-64 bg-[#0f1f1c] min-h-screen flex flex-col
+      fixed left-0 top-0 bottom-0 z-40
+      transition-transform duration-300 ease-in-out
+      ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
+      md:translate-x-0
+    `}>
       {/* Logo */}
-      <div className="px-6 py-5 border-b border-white/10">
+      <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
         <Image src="/logo.png" alt="meta aware" width={160} height={54} className="h-14 w-auto" />
+        <button
+          onClick={() => setMobileOpen(false)}
+          className="md:hidden text-white/40 hover:text-white/70 transition-colors"
+        >
+          <X size={20} />
+        </button>
       </div>
 
       {/* Navigation */}
@@ -105,5 +124,30 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
         </button>
       </div>
     </aside>
+  )
+
+  return (
+    <>
+      {/* Mobile top bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-30 bg-[#0f1f1c] h-14 flex items-center px-4 border-b border-white/10">
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="text-white/70 hover:text-white transition-colors"
+        >
+          <Menu size={22} />
+        </button>
+        <Image src="/logo.png" alt="meta aware" width={100} height={34} className="h-8 w-auto mx-auto" />
+      </div>
+
+      {/* Backdrop */}
+      {mobileOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {sidebarContent}
+    </>
   )
 }
