@@ -25,7 +25,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         plan={profile?.plan || 'free'}
         certificationStatus={profile?.certification_status || null}
       />
-      <main className="flex-1 ml-64">
+      <main className="flex-1 md:ml-64 pt-14 md:pt-0">
         {children}
       </main>
     </div>
