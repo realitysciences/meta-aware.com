@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { LENSES, LENS_IDS } from '@/lib/lenses'
@@ -359,7 +360,7 @@ export default function NewSessionPage() {
           <div className="flex-1">
             <div className="text-sm font-semibold text-amber-800 mb-1">Interrupted recording found</div>
             <div className="text-xs text-amber-700 mb-3">
-              We found a recording backup ({formatTime(recoveredTimer)}) from a previous session that didn't finish. Would you like to submit it for transcription?
+              We found a recording backup ({formatTime(recoveredTimer)}) from a previous session that didn&apos;t finish. Would you like to submit it for transcription?
             </div>
             <div className="flex gap-2">
               <button
@@ -407,7 +408,7 @@ export default function NewSessionPage() {
           {clients.length === 0 ? (
             <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
               <p className="text-gray-400 text-sm mb-3">No clients yet</p>
-              <a href="/dashboard/clients" className="text-[#0a6b5e] text-sm font-medium hover:underline">Add a client first</a>
+              <Link href="/dashboard/clients" className="text-[#0a6b5e] text-sm font-medium hover:underline">Add a client first</Link>
             </div>
           ) : (
             <div className="space-y-2">

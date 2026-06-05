@@ -3,6 +3,11 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import AddClientModal from './AddClientModal'
 
+interface ClientSession {
+  id: string
+  created_at: string
+}
+
 export default async function ClientsPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -20,7 +25,7 @@ export default async function ClientsPage() {
   const clientsWithStats = (clients || []).map(c => {
     const sessions = c.sessions || []
     const sessionCount = sessions.length
-    const lastSession = sessions.sort((a: any, b: any) =>
+    const lastSession = sessions.sort((a: ClientSession, b: ClientSession) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     )[0]
 

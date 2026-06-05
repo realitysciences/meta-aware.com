@@ -1,154 +1,429 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+import {
+  ArrowRight,
+  BarChart3,
+  BookOpen,
+  Brain,
+  Check,
+  CircleUserRound,
+  FileText,
+  Lock,
+  MessageSquare,
+  Mic,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  X,
+} from 'lucide-react'
+
+const navItems = ['How It Works', 'The 24-Domain Map', 'Reports', 'For Professionals', 'About', 'Resources', 'Pricing']
+
+const trustItems = [
+  { icon: ShieldCheck, title: '100% Private', copy: 'Your data is encrypted and never shared.' },
+  { icon: Brain, title: 'AI With Boundaries', copy: 'Insightful, not invasive. Designed for clarity, not diagnosis.' },
+  { icon: Sparkles, title: 'Built on ReLoHu', copy: 'A whole-person mapping methodology.' },
+  { icon: Lock, title: 'You are in Control', copy: 'You decide what to share, what to explore, and when to go deeper.' },
+  { icon: CircleUserRound, title: 'Yours Alone', copy: 'Your story. Your pace. Your transformation.' },
+]
+
+const processSteps = [
+  { icon: Mic, title: 'Speak', copy: 'Share your story through guided voice sessions.' },
+  { icon: BookOpen, title: 'Reflect', copy: 'Every completed unit returns a personal reflection.' },
+  { icon: Sparkles, title: 'Build', copy: 'Your map grows across 24 domains.' },
+  { icon: MessageSquare, title: 'Talk', copy: 'Speak or chat with Reality Scientist AI anytime.' },
+  { icon: BarChart3, title: 'Deepen', copy: 'Artifacts, future sessions, and life events increase resolution over time.' },
+]
+
+const atlasDomains = [
+  'Life timeline and turning points',
+  'Family systems and imprints',
+  'Attachment and relationship patterns',
+  'Self-worth and inner courtroom',
+  'Work, money and calling',
+  'Core nature, strengths and gifts',
+  'Wounds, vacancies and protective strategies',
+  'Current synthesis and next truths',
+]
+
+const inputItems = [
+  { icon: Mic, title: 'Voice Sessions', copy: 'Capture your story in your own words.' },
+  { icon: FileText, title: 'Artifacts', copy: 'Photos, documents, notes and messages add historical evidence.' },
+  { icon: Sparkles, title: 'Reflections', copy: 'Every unit returns insight that builds self-awareness.' },
+  { icon: BarChart3, title: 'Reports', copy: 'Domain reports reveal patterns and themes across your life.' },
+  { icon: X, title: 'Synthesis Threads', copy: 'Meta-Aware connects the dots across domains.' },
+]
+
+const professionalCards = [
+  { icon: Users, title: 'Bring your Atlas into the room.', copy: 'Meta-Aware does not replace therapy. It gives you structured self-reflection you can bring into deeper conversations.' },
+  { icon: Users, title: 'For Professionals', copy: 'Some therapists, coaches and guides may choose to work with Meta-Aware reports as client-provided reflection material.' },
+  { icon: Sparkles, title: 'Professional Circle', copy: 'A directory of professionals familiar with Meta-Aware reports and how to use them reflectively.' },
+]
+
+function Waveform({ color = '#3047ff' }: { color?: string }) {
+  return (
+    <div className="flex h-9 items-center justify-center gap-[3px]" aria-hidden="true">
+      {Array.from({ length: 23 }).map((_, index) => (
+        <span
+          key={index}
+          className="w-[2px] rounded-full"
+          style={{
+            height: `${8 + Math.abs(Math.sin(index * 0.72)) * 25}px`,
+            backgroundColor: color,
+            opacity: index % 3 === 0 ? 0.45 : 0.9,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function CardShell({ children, className = '', id }: { children: React.ReactNode; className?: string; id?: string }) {
+  return (
+    <section id={id} className={`rounded-[18px] border border-[#eadfce] bg-white/62 shadow-[0_10px_34px_rgba(42,25,7,0.045)] ${className}`}>
+      {children}
+    </section>
+  )
+}
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
-          <Image src="/logo.png" alt="meta aware" width={280} height={95} className="h-20 w-auto mix-blend-multiply" />
-          <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900">Sign In</Link>
-            <Link href="/signup" className="text-sm bg-[#0a6b5e] text-white px-4 py-2 rounded-lg hover:bg-[#0d7f6f] transition-colors">Request Access</Link>
-          </div>
-        </div>
-      </nav>
+    <main className="min-h-screen bg-[#fffaf2] px-3 py-2 text-[#06183a] sm:px-7">
+      <div className="mx-auto max-w-[1500px]">
+        <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#eadfce]/80 bg-[#fffaf2]/95 px-3 py-2 shadow-[0_10px_30px_rgba(42,25,7,0.04)] backdrop-blur sm:px-7">
+          <div className="mx-auto flex h-14 max-w-[1500px] items-center justify-between gap-3 sm:h-[60px] sm:gap-5">
+          <Link href="/" aria-label="Meta-Aware home" className="shrink-0">
+            <Image
+              src="/assets/meta-aware-logo.png"
+              alt="Meta-Aware"
+              width={2508}
+              height={627}
+              priority
+              className="h-9 w-auto object-contain sm:h-11"
+            />
+          </Link>
 
-      {/* Hero */}
-      <section className="pt-24 pb-20 px-6 bg-gradient-to-br from-[#e8f7f3] via-white to-white">
-        <div className="max-w-4xl mx-auto text-center pt-16">
-          <div className="inline-block bg-[#e8f7f3] text-[#0a6b5e] text-xs font-semibold px-3 py-1 rounded-full mb-6 tracking-wide uppercase">
-            ReLoHu™ Methodology
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            See what&apos;s really<br />
-            <span className="text-[#0a6b5e]">happening in the room.</span>
-          </h1>
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            meta aware helps coaches, somatic practitioners, and facilitators record sessions, map psychological terrain in real time, and generate deep multi-lens analyses — so the insight doesn&apos;t stay in the session.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/signup" className="w-full sm:w-auto bg-[#0a6b5e] text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-[#0d7f6f] transition-colors text-center">
-              Request Access
+          <nav className="hidden flex-1 items-center justify-center gap-8 text-[13px] font-bold lg:flex">
+            {navItems.map((item) => (
+              <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`} className="whitespace-nowrap transition hover:text-[#a45f0d]">
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-4">
+            <Link href="/login" className="hidden text-[13px] font-bold sm:inline">Log in</Link>
+            <Link href="/signup" className="inline-flex items-center gap-2 rounded-[10px] bg-[#06183a] px-3 py-2.5 text-left text-[11px] font-bold text-white shadow-[0_14px_30px_rgba(6,24,58,0.18)] sm:gap-3 sm:px-4 sm:py-3 sm:text-xs">
+              <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="sm:hidden">Start</span>
+              <span className="hidden sm:inline">
+                Start Voice Session
+                <span className="block text-[9px] font-semibold text-white/72">One session. One reflection.</span>
+              </span>
             </Link>
-            <a href="#how-it-works" className="w-full sm:w-auto border border-gray-300 text-gray-700 px-8 py-3.5 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-center">
-              See How It Works
+          </div>
+          </div>
+        </header>
+
+        <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-stretch">
+          <div className="flex flex-col justify-start pb-3 pt-0 sm:min-h-[470px] md:pl-4">
+            <p className="mb-3 max-w-[430px] text-sm font-black uppercase tracking-[0.18em] text-[#a45f0d]">
+              A private voice-reflection app
+            </p>
+            <h1 className="font-serif text-[clamp(2.65rem,10vw,3.55rem)] leading-[0.94] text-[#06183a] md:text-[clamp(3.45rem,3.25vw,4.15rem)] xl:text-[4.35rem]">
+              Speak your life
+              <br />
+              into a map of
+              <br />
+              <span className="italic text-[#a45f0d]">yourself.</span>
+              <span className="ml-5 align-middle text-[0.45em] not-italic text-[#b87518]">✦</span>
+            </h1>
+            <p className="mt-5 max-w-[440px] text-base font-semibold leading-7 sm:mt-6 sm:text-[18px]">
+              Meta-Aware turns guided voice sessions into personal reflections, a Whole-Person Atlas, and context Reality Scientist AI can use to reflect with you more precisely.
+            </p>
+            <div className="mt-4 space-y-2 text-sm font-semibold leading-6 sm:text-[16px]">
+              <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />Speak privately and receive a structured reflection.</p>
+              <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />Watch your life map and AI context get clearer over time.</p>
+            </div>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:flex sm:flex-wrap">
+              <Link href="/signup" className="inline-flex min-w-0 items-center gap-2 rounded-[9px] bg-[#06183a] px-3 py-3 text-xs font-bold text-white sm:min-w-[162px] sm:gap-3 sm:px-4 sm:py-4 sm:text-sm">
+                <Mic className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
+                <span>
+                  Start Voice Session
+                  <span className="block text-[10px] font-semibold text-white/75">One session. One reflection.</span>
+                </span>
+              </Link>
+              <a href="#sample-atlas" className="inline-flex min-w-0 items-center gap-2 rounded-[9px] border border-[#d7c6ae] bg-white/80 px-3 py-3 text-xs font-bold sm:min-w-[162px] sm:gap-3 sm:px-4 sm:py-4 sm:text-sm">
+                <FileText className="h-5 w-5 shrink-0" />
+                <span>
+                  See Sample Atlas
+                  <span className="block text-[10px] font-semibold text-[#44506b]">See what you receive</span>
+                </span>
+              </a>
+            </div>
+            <p className="mt-5 flex items-start gap-3 text-xs font-bold text-[#a45f0d] sm:mt-7 sm:text-sm">
+              <Lock className="mt-0.5 h-4 w-4" />
+              <span>
+                Private. Secure. Yours alone.
+                <span className="block text-xs font-semibold text-[#06183a]">End-to-end encrypted. Your data is never shared.</span>
+              </span>
+            </p>
+          </div>
+
+          <section className="overflow-hidden rounded-[18px] border border-[#0b2351] bg-[#06183a] p-5 text-white shadow-[0_10px_34px_rgba(42,25,7,0.045)] sm:p-6 md:p-7">
+            <div className="mb-5 text-center font-serif text-2xl leading-tight sm:text-3xl md:mb-6">
+              Every time you speak, <span className="text-[#eaa52e]">two things</span> get better.
+            </div>
+            <div className="grid items-start gap-4 md:grid-cols-[1fr_44px_1fr_44px_1fr]">
+              <div className="text-center">
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#526bff] bg-[#111c55] text-white shadow-[0_0_38px_rgba(82,107,255,0.6)] sm:h-[132px] sm:w-[132px] xl:h-[150px] xl:w-[150px]">
+                  <Mic className="h-10 w-10 sm:h-14 sm:w-14" />
+                </div>
+                <h2 className="mt-4 text-base font-black text-[#f1bc39]">1. You Speak</h2>
+                <p className="mx-auto mt-2 max-w-[210px] text-sm leading-6 text-white/92">Share your story through guided voice sessions.</p>
+              </div>
+
+              <div className="hidden h-[132px] items-center justify-center text-white/80 md:flex xl:h-[150px]">
+                <span className="w-full border-t border-dashed border-white/80" />
+                <ArrowRight className="-ml-1 h-5 w-5 shrink-0" />
+              </div>
+
+              <div className="text-center">
+                <Image
+                  src="/assets/whole-person-atlas-book-transparent.png"
+                  alt="The Whole-Person Atlas book"
+                  width={1122}
+                  height={1402}
+                  priority
+                  className="mx-auto h-36 w-auto object-contain drop-shadow-[0_18px_32px_rgba(0,0,0,0.38)] sm:h-[172px] xl:h-[188px]"
+                />
+                <h2 className="mt-2 text-base font-black text-[#f1bc39]">2. Your Atlas Gets Clearer</h2>
+                <p className="mx-auto mt-2 max-w-[250px] text-sm leading-6 text-white/92">Your map grows across 24 domains with every insight, reflection, and artifact.</p>
+              </div>
+
+              <div className="hidden h-[132px] items-center justify-center text-white/80 md:flex xl:h-[150px]">
+                <span className="w-full border-t border-dashed border-white/80" />
+                <ArrowRight className="-ml-1 h-5 w-5 shrink-0" />
+              </div>
+
+              <div className="text-center">
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#a969ff] bg-[#1d1249] text-white shadow-[0_0_40px_rgba(169,105,255,0.58)] sm:h-[132px] sm:w-[132px] xl:h-[150px] xl:w-[150px]">
+                  <MessageSquare className="h-10 w-10 sm:h-14 sm:w-14" />
+                </div>
+                <h2 className="mt-4 text-base font-black text-[#f1bc39]">3. Reality Scientist AI Understands You Better</h2>
+                <p className="mx-auto mt-2 max-w-[230px] text-sm leading-6 text-white/92">It starts with what it knows. Every session makes it more personal, precise, and useful.</p>
+              </div>
+            </div>
+            <div className="mt-5 rounded-[22px] border border-white/25 px-4 py-3 text-center text-base leading-7 sm:px-5 sm:text-lg">
+              The more you share, the <span className="font-bold text-[#f1bc39]">clearer your Atlas becomes.</span>
+              <br />
+              The clearer your Atlas becomes, the <span className="font-bold text-[#f1bc39]">better Reality Scientist AI can reflect with you.</span>
+            </div>
+          </section>
+        </section>
+
+        <CardShell className="mt-4 grid gap-0 overflow-hidden p-3 sm:mt-6 sm:p-4 md:grid-cols-5">
+          {trustItems.map((item) => (
+            <div key={item.title} className="flex items-center gap-3 border-b border-[#eadfce] p-3 last:border-b-0 sm:gap-4 sm:p-4 md:border-b-0 md:border-r md:last:border-r-0">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#eadfce] bg-[#fffaf2] sm:h-14 sm:w-14">
+                <item.icon className="h-7 w-7 sm:h-8 sm:w-8" />
+              </div>
+              <div>
+                <h2 className="text-sm font-black">{item.title}</h2>
+                <p className="mt-1 text-xs font-semibold leading-5 text-[#44506b]">{item.copy}</p>
+              </div>
+            </div>
+          ))}
+        </CardShell>
+
+        <section className="mt-4 grid gap-4 md:grid-cols-[0.62fr_0.38fr]">
+          <CardShell id="how-it-works" className="p-4 sm:p-6">
+            <h2 className="text-center text-lg font-black uppercase">How It Works</h2>
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:mt-6 md:grid-cols-5">
+              {processSteps.map((step, index) => (
+                <div key={step.title} className="text-center">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#f2eaf4] text-[#2530a3] sm:h-16 sm:w-16">
+                    <step.icon className="h-7 w-7 sm:h-8 sm:w-8" />
+                  </div>
+                  <h3 className="mt-4 text-left text-sm font-black text-[#183180] sm:mt-5 sm:text-base">{index + 1}. {step.title}</h3>
+                  <p className="mt-2 text-left text-xs font-semibold leading-5 text-[#06183a]">{step.copy}</p>
+                </div>
+              ))}
+            </div>
+          </CardShell>
+
+          <CardShell id="the-24-domain-map" className="grid items-center gap-3 p-4 sm:grid-cols-[0.9fr_1.1fr] sm:p-6">
+            <div>
+              <h2 className="font-serif text-2xl sm:text-3xl">The 24-Domain Map</h2>
+              <p className="mt-3 text-[15px] font-bold leading-6">A complete picture of you.</p>
+              <p className="mt-4 text-[15px] font-semibold leading-7 text-[#44506b]">Family, attachment, identity, body, work, meaning, adaptation, and more.</p>
+              <a href="#the-24-domain-map" className="mt-5 inline-flex items-center gap-2 rounded-[8px] border border-[#d7c6ae] bg-white px-4 py-3 text-sm font-bold">
+                Explore the 24-Domain Map <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+            <Image
+              src="/assets/domain-radial-map.png"
+              alt="24-domain radial map"
+              width={1254}
+              height={1254}
+              className="mx-auto h-auto w-full max-w-[240px] object-contain sm:max-w-[300px]"
+            />
+          </CardShell>
+        </section>
+
+        <section className="mt-4 grid gap-4 md:grid-cols-[0.48fr_0.52fr]">
+          <CardShell className="p-4 sm:p-6">
+            <h2 className="text-center font-serif text-2xl sm:text-3xl">Talk to Reality Scientist AI from day one.</h2>
+            <p className="mt-2 text-center text-[15px] font-semibold">It is available now, and it gets sharper the more it knows about you.</p>
+            <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
+              {[
+                ['Low Resolution', 'After your first session, it can reflect from the first signals you share.', '#3447ff'],
+                ['Medium Resolution', 'After more sessions, it begins connecting patterns across domains.', '#0e8a69'],
+                ['High Resolution', 'After deeper mapping, it can reflect from your Atlas, artifacts, reports, and synthesis threads.', '#4b3dce'],
+              ].map(([title, copy, color]) => (
+                <div key={title} className="rounded-[12px] border border-[#eadfce] bg-white/70 p-4">
+                  <h3 className="text-sm font-black">{title}</h3>
+                  <p className="mt-2 min-h-[64px] text-xs font-semibold leading-5">{copy}</p>
+                  <Waveform color={color} />
+                  <div className="relative mx-auto mt-2 aspect-square max-w-[135px] overflow-hidden rounded-full opacity-70">
+                    <Image src="/assets/domain-radial-map.png" alt="" fill sizes="135px" className="object-cover opacity-35" />
+                    <CircleUserRound className="absolute bottom-2 left-1/2 h-12 w-12 -translate-x-1/2" style={{ color }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex items-center gap-4 rounded-[12px] bg-[#f2edf5] p-4 text-sm font-bold">
+              <MessageSquare className="h-8 w-8 shrink-0 text-[#2430a3]" />
+              Ask about decisions, relationships, patterns, emotions, or next steps.
+              <span className="font-black">Your context grows. Your AI gets clearer.</span>
+            </div>
+          </CardShell>
+
+          <CardShell id="reports" className="grid gap-4 p-4 sm:p-6 md:grid-cols-[0.48fr_0.52fr]">
+            <div className="flex items-center justify-center">
+              <Image
+                src="/assets/whole-person-atlas-book-transparent.png"
+                alt="The Whole-Person Atlas book"
+                width={1122}
+                height={1402}
+                className="h-auto max-h-[240px] w-auto object-contain drop-shadow-[0_18px_38px_rgba(42,25,7,0.22)] sm:max-h-[330px]"
+              />
+            </div>
+            <div>
+              <h2 className="text-center font-serif text-2xl text-[#7a3e08] sm:text-3xl">The Whole-Person Atlas</h2>
+              <p className="mt-1 text-center text-sm font-black">The crown artifact of Meta-Aware.</p>
+              <p className="mt-1 text-center text-sm font-semibold">The most complete map of yourself you may ever have.</p>
+              <div className="mt-5 border-l border-[#c3781c] pl-4 sm:mt-6 sm:pl-7">
+                <p className="text-sm font-semibold leading-6">
+                  Built from your voice sessions, artifacts, reflections, domain reports, and synthesis threads, the Whole-Person Atlas becomes the final comprehensive report of your life across all 24 domains.
+                </p>
+                <ul className="mt-4 space-y-1.5 text-sm font-bold">
+                  {atlasDomains.map((domain) => (
+                    <li key={domain} className="flex items-start gap-2">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 rounded-full bg-[#d88920] p-[2px] text-white" />
+                      {domain}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#sample-atlas" className="mt-5 inline-flex w-full items-center justify-center gap-3 rounded-[8px] bg-[#dda044] px-5 py-3 text-sm font-black text-[#06183a]">
+                  Preview a Sample Atlas <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </CardShell>
+        </section>
+
+        <section className="mt-4 grid gap-4 md:grid-cols-[0.41fr_0.36fr_0.23fr]">
+          <CardShell className="p-4 sm:p-6">
+            <h2 className="font-serif text-xl sm:text-2xl">Every input strengthens your map and your AI.</h2>
+            <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-5 sm:gap-3">
+              {inputItems.map((item) => (
+                <div key={item.title} className="text-xs font-semibold leading-5">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#f2eaf4]">
+                    <item.icon className="h-7 w-7 text-[#2530a3]" />
+                  </div>
+                  <h3 className="font-black">{item.title}</h3>
+                  <p className="mt-1 text-[#44506b]">{item.copy}</p>
+                </div>
+              ))}
+            </div>
+          </CardShell>
+
+          <CardShell className="p-4 sm:p-6">
+            <h2 className="font-serif text-xl sm:text-2xl">Resolution increases over time.</h2>
+            <p className="mt-2 text-sm font-semibold leading-6">The more you share, the clearer your Atlas becomes and the more personal Reality Scientist AI gets.</p>
+            <div className="mt-6 grid grid-cols-2 gap-4 text-xs font-bold sm:mt-8 sm:grid-cols-4 sm:gap-3">
+              {['Basic', 'Clear', 'Deep', 'High-Fidelity'].map((stage, index) => (
+                <div key={stage}>
+                  <div className="mb-3 h-2 rounded-full bg-[#e7d9c2]">
+                    <div className="h-2 rounded-full bg-[#1b8672]" style={{ width: `${35 + index * 20}%` }} />
+                  </div>
+                  <h3>{stage}</h3>
+                  <p className="mt-1 font-semibold text-[#44506b]">{['Getting started.', 'Patterns are emerging.', 'Domains are connecting.', 'Maximum clarity from voice, artifacts, reports, and synthesis.'][index]}</p>
+                </div>
+              ))}
+            </div>
+          </CardShell>
+
+          <CardShell className="p-4 sm:p-6">
+            <h2 className="font-serif text-xl sm:text-2xl">Your data, always yours.</h2>
+            <ul className="mt-7 space-y-4 text-sm font-bold">
+              {['End-to-end encryption', 'You own your data', 'Export or delete anytime', 'We never sell your data'].map((item) => (
+                <li key={item} className="flex items-center gap-3"><Check className="h-4 w-4 rounded-full border border-[#2530a3] p-[2px] text-[#2530a3]" />{item}</li>
+              ))}
+            </ul>
+            <ShieldCheck className="ml-auto mt-4 h-20 w-20 text-[#2530a3]" />
+          </CardShell>
+        </section>
+
+        <CardShell id="for-professionals" className="mt-4 p-4 sm:p-5">
+          <h2 className="text-center font-serif text-xl sm:text-2xl">Use it alone, or bring it into deeper conversations.</h2>
+          <p className="text-center text-sm font-semibold">Your Atlas is yours. Share selected sections with a therapist, coach, mentor, or guide only if you choose.</p>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {professionalCards.map((card) => (
+              <div key={card.title} className="grid grid-cols-[44px_1fr] gap-3 rounded-[12px] bg-white/45 p-4 sm:grid-cols-[72px_1fr] sm:gap-4">
+                <card.icon className="h-10 w-10" />
+                <div>
+                  <h3 className="text-sm font-black">{card.title}</h3>
+                  <p className="mt-2 text-xs font-semibold leading-5 text-[#44506b]">{card.copy}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardShell>
+
+        <section id="pricing" className="mt-4 overflow-hidden rounded-[14px] bg-[#06183a] text-white">
+          <div className="grid items-center gap-4 p-4 sm:gap-5 sm:p-5 md:grid-cols-[0.2fr_1fr_auto_auto]">
+            <div className="relative hidden h-20 overflow-hidden rounded-[10px] md:block">
+              <Image src="/assets/voice-waveform-hero.png" alt="" fill sizes="220px" className="object-cover" />
+            </div>
+            <div>
+              <h2 className="font-serif text-2xl sm:text-3xl">Start with one voice session.</h2>
+              <p className="mt-1 text-base text-[#f0a638] sm:text-lg">Leave with one reflection. Begin your Atlas.</p>
+              <p className="text-sm font-semibold">Start talking to Reality Scientist AI today.</p>
+            </div>
+            <Link href="/signup" className="inline-flex items-center justify-center gap-3 rounded-[9px] bg-[#4b35e8] px-5 py-3 text-sm font-black sm:px-8 sm:py-4">
+              <Mic className="h-6 w-6" />
+              Start Voice Session
+            </Link>
+            <a href="#sample-atlas" className="inline-flex items-center justify-center gap-3 rounded-[9px] border border-white/40 px-5 py-3 text-sm font-black sm:px-8 sm:py-4">
+              See Sample Atlas
             </a>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Manifesto */}
-      <section className="py-20 px-6 bg-[#0a6b5e]">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[#a8e6d4] text-sm font-semibold uppercase tracking-widest mb-6">It&apos;s 2026</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-6">
-            Mental health support hasn&apos;t kept pace.<br />New modalities have emerged. New methods. New language.<br />
-            <span className="text-[#6dd9b8]">But the tools practitioners use? Largely the same.</span>
-          </h2>
-          <p className="text-[#c2ede0] text-lg leading-relaxed max-w-2xl mx-auto">
-            Technology has transformed medicine, law, education — and now it&apos;s ready to transform the room where the real work happens. Not to replace the practitioner. To amplify what they already see. To surface what&apos;s hidden in plain sight. To turn a session into a map.
-          </p>
-          <p className="text-[#6dd9b8] font-semibold text-lg mt-8">
-            That&apos;s what meta aware™ is built for.
-          </p>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section id="how-it-works" className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">How It Works</h2>
-            <p className="text-gray-500">From session to insight in minutes</p>
+        <footer className="flex flex-col items-center justify-between gap-3 py-4 text-center text-[11px] font-semibold text-[#44506b] md:flex-row md:py-3 md:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+            <Image src="/assets/meta-aware-icon.png" alt="Meta-Aware icon" width={1254} height={1254} className="h-5 w-5 object-contain" />
+            <span>META-AWARE</span>
+            <span>Speak. Reflect. Understand. Transform.</span>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { step: '01', title: 'Record Your Session', desc: 'Capture audio directly in the browser with a built-in consent flow. Pause, resume, or upload an existing recording.' },
-              { step: '02', title: 'Auto-Transcription', desc: 'AssemblyAI transcribes your session with speaker labels, separating Practitioner and Client turns automatically.' },
-              { step: '03', title: 'Terrain Analysis', desc: 'Run the transcript through a curated set of psychological lenses, each surfacing a different dimension of the terrain. Powered by Claude AI.' },
-            ].map(item => (
-              <div key={item.step} className="relative p-6 border border-gray-100 rounded-xl hover:border-[#0a6b5e]/30 hover:shadow-sm transition-all">
-                <div className="text-4xl font-bold text-[#e8f7f3] mb-4">{item.step}</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+          <div className="hidden gap-7 md:flex">
+            {navItems.slice(0, 5).map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</a>)}
           </div>
-        </div>
-      </section>
-
-      {/* Who It's For */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">Who It&apos;s For</h2>
-            <p className="text-gray-500">Built for practitioners who work below the surface</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: '🎯', title: 'Coaches', desc: 'Move beyond surface-level conversation. Map the underlying patterns, beliefs, and terrain driving your clients forward or holding them back.' },
-              { icon: '🌿', title: 'Somatic Practitioners', desc: 'Integrate body-based observations with psychological frameworks for a complete picture of where your client is in the terrain.' },
-              { icon: '🔄', title: 'Facilitators & Consultants', desc: 'Bring structural clarity to complex group dynamics, organizational patterns, and individual development work.' },
-            ].map(item => (
-              <div key={item.title} className="bg-white p-6 rounded-xl border border-gray-100">
-                <div className="text-3xl mb-4">{item.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-center text-xs text-gray-400 mt-8">
-            meta aware is a practitioner productivity tool, not a clinical or diagnostic platform. It is not intended for use in licensed psychotherapy or medical practice.
-          </p>
-        </div>
-      </section>
-
-      {/* What's Included */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">What&apos;s Included</h2>
-            <p className="text-gray-500">Everything you need in one platform</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { title: 'Session Recording', desc: 'Browser-based audio capture with consent flow, pause/resume, crash-safe backup, and support for uploaded Zoom or voice recordings.' },
-              { title: 'AI Transcription', desc: 'Automatic transcription with speaker diarization via AssemblyAI — know exactly who said what, with no manual effort.' },
-              { title: 'ReLoHu Terrain Mapping', desc: 'A curated set of psychological lenses, each designed to surface a different layer of what\'s happening in the session — extracted from your transcripts using TranscEngine™ analysis technology.' },
-              { title: 'Client Reports', desc: 'Generate PDF reports from analyses to track patterns over time, prepare for supervision, or deepen your own reflection.' },
-            ].map(item => (
-              <div key={item.title} className="p-6 rounded-xl border border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">Simple Pricing</h2>
-          <p className="text-gray-500 mb-10">Plans and pricing will be announced at launch. Request access to be among the first to know.</p>
-          <Link href="/signup" className="inline-block bg-[#0a6b5e] text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-[#0d7f6f] transition-colors">
-            Request Access
-          </Link>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto text-center">
-          <Image src="/logo.png" alt="meta aware" width={240} height={81} className="h-20 w-auto mx-auto mb-3 mix-blend-multiply" />
-          <p className="text-sm text-gray-400 mb-3">© {new Date().getFullYear()} meta aware™. All rights reserved. · An entity of Spheronaut™</p>
-          <p className="text-xs text-gray-300 max-w-lg mx-auto">
-            meta aware is a practitioner productivity tool. It is not a licensed clinical service and does not provide medical, psychological, or therapeutic advice.
-          </p>
-        </div>
-      </footer>
-    </div>
+          <p>© {new Date().getFullYear()} Meta-Aware. All rights reserved.</p>
+        </footer>
+      </div>
+    </main>
   )
 }

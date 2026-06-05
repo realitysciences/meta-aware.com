@@ -1,18 +1,12 @@
 import type { Metadata } from 'next'
-import { DM_Sans } from 'next/font/google'
 import './globals.css'
 
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
-})
-
 export const metadata: Metadata = {
-  title: 'meta aware | Psychological Terrain Mapping',
-  description: 'The platform for psychological terrain mapping using the ReLoHu methodology.',
+  title: 'Meta-Aware | Speak Your Life Into a Map of Yourself',
+  description: 'A private voice-reflection app that turns guided sessions into personal reflections, a Whole-Person Atlas, and useful AI context over time.',
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: '/assets/meta-aware-icon.png',
+    apple: '/assets/meta-aware-icon.png',
   },
 }
 
@@ -22,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="en">
       <body className="font-sans antialiased">
         {children}
       </body>

@@ -4,6 +4,27 @@ import Link from 'next/link'
 import { LENSES } from '@/lib/lenses'
 import type { LensId } from '@/lib/lenses'
 
+interface SessionSummary {
+  id: string
+  session_number: number
+  clients?: {
+    name?: string
+    initials?: string
+    color?: string
+  } | null
+}
+
+interface AnalysisSummary {
+  id: string
+  lens_id: string
+  result?: string | null
+  clients?: {
+    name?: string
+    initials?: string
+    color?: string
+  } | null
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient()
 
@@ -78,7 +99,7 @@ export default async function DashboardPage() {
             </div>
           ) : (
             <div className="space-y-3">
-              {todaySessions.map((session: any) => (
+              {(todaySessions as SessionSummary[]).map((session) => (
                 <Link key={session.id} href={`/dashboard/sessions/${session.id}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group">
                   <div
                     className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
@@ -108,7 +129,7 @@ export default async function DashboardPage() {
             </div>
           ) : (
             <div className="space-y-3">
-              {recentAnalyses.map((analysis: any) => {
+              {(recentAnalyses as AnalysisSummary[]).map((analysis) => {
                 const lens = LENSES[analysis.lens_id as LensId]
                 return (
                   <div key={analysis.id} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50">

@@ -4,21 +4,13 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { LENSES } from '@/lib/lenses'
 import type { LensId } from '@/lib/lenses'
-import { FileText, Download } from 'lucide-react'
+import { Download } from 'lucide-react'
 
 interface Client {
   id: string
   name: string
   initials: string
   color: string
-}
-
-interface Analysis {
-  id: string
-  lens_id: string
-  result: string
-  created_at: string
-  sessions?: { session_number: number }
 }
 
 export default function ReportsPage() {

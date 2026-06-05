@@ -8,22 +8,20 @@
   --color-teal-50: #e8f7f3;
   --color-sidebar: #0f1f1c;
   --color-sidebar-hover: #1a3530;
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Avenir, "Avenir Next", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #fbf7ef;
+  --foreground: #06183a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+::selection {
+  background: #f0a638;
+  color: #06183a;
 }
