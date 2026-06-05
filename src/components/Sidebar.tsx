@@ -54,7 +54,7 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
     `}>
       {/* Logo */}
       <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
-        <Image src="/logo.png" alt="meta aware" width={160} height={54} className="h-14 w-auto" />
+        <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-10 w-auto" />
         <button
           onClick={() => setMobileOpen(false)}
           className="md:hidden text-white/40 hover:text-white/70 transition-colors"
@@ -136,7 +136,7 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
         >
           <Menu size={22} />
         </button>
-        <Image src="/logo.png" alt="meta aware" width={100} height={34} className="h-8 w-auto mx-auto" />
+        <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-8 w-auto mx-auto" />
       </div>
 
       {/* Backdrop */}

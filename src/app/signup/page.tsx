@@ -6,7 +6,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-sm text-center">
         <Link href="/">
-          <Image src="/logo.png" alt="meta aware" width={120} height={120} className="h-20 w-auto mx-auto mb-8 mix-blend-multiply" />
+          <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-16 w-auto mx-auto mb-8" />
         </Link>
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
           <div className="w-12 h-12 bg-[#0a6b5e]/10 rounded-full flex items-center justify-center mx-auto mb-4">
