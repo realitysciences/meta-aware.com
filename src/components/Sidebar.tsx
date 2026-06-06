@@ -52,7 +52,13 @@ const lowerNavItems = [
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
-const sourceItems = ['Voice Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
+const sourceItems = [
+  { label: 'Voice Sessions', href: '/map-sources/voice-sessions', activePath: '/voice-session' },
+  { label: 'Artifacts', href: '/map-sources/artifacts' },
+  { label: 'Lens Scans', href: '/map-sources/lens-scans' },
+  { label: 'Journals', href: '/map-sources/journals' },
+  { label: 'Transcripts', href: '/map-sources/transcripts' },
+]
 
 export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProps) {
   const pathname = usePathname()
@@ -124,12 +130,15 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
             <ChevronDown className="ml-auto h-4 w-4 text-[#173563]" />
           </div>
           <div className="ml-[9px] mt-2 space-y-2 border-l border-[#d8c4a7] pl-6">
-            {sourceItems.map((item) => (
-              <Link key={item} href={`/map-sources/${item.toLowerCase().replaceAll(' ', '-')}`} className="flex items-center gap-2 text-xs font-semibold text-[#314164] hover:text-[#a45f0d]">
-                <span className="h-2 w-2 rounded-full bg-[#cfc0a8]" />
-                {item}
-              </Link>
-            ))}
+            {sourceItems.map((item) => {
+              const active = pathname.startsWith(item.activePath ?? item.href)
+              return (
+                <Link key={item.label} href={item.href} className={`flex items-center gap-2 text-xs font-semibold transition ${active ? 'text-[#c97c1e]' : 'text-[#314164] hover:text-[#a45f0d]'}`}>
+                  <span className={`h-2 w-2 rounded-full ${active ? 'bg-[#c97c1e]' : 'bg-[#cfc0a8]'}`} />
+                  {item.label}
+                </Link>
+              )
+            })}
           </div>
         </div>
 
