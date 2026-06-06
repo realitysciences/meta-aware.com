@@ -1,38 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { createClient } from '@/lib/supabase/server'
+import { getCurrentUser } from '@/lib/firebase/session'
+import { getFirebaseAdminDb } from '@/lib/firebase/admin'
 
 export async function POST(request: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2025-01-27.acacia',
   })
   try {
-    const supabase = await createClient()
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    const user = await getCurrentUser()
 
-    if (authError || !user) {
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('stripe_customer_id, email')
-      .eq('id', user.id)
-      .single()
+    const db = getFirebaseAdminDb()
+    const profileRef = db.collection('profiles').doc(user.id)
+    const profileSnapshot = await profileRef.get()
+    const profile = profileSnapshot.exists ? profileSnapshot.data() : {}
 
-    let customerId = profile?.stripe_customer_id
+    let customerId = typeof profile?.stripeCustomerId === 'string' ? profile.stripeCustomerId : null
 
     if (!customerId) {
       const customer = await stripe.customers.create({
         email: user.email,
-        metadata: { supabase_user_id: user.id },
+        metadata: { firebase_user_id: user.id },
       })
       customerId = customer.id
 
-      await supabase
-        .from('profiles')
-        .update({ stripe_customer_id: customerId })
-        .eq('id', user.id)
+      await profileRef.set({ stripeCustomerId: customerId, updatedAt: new Date().toISOString() }, { merge: true })
     }
 
     const origin = request.headers.get('origin') || 'http://localhost:3000'

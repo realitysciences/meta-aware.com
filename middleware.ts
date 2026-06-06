@@ -4,12 +4,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (pathname.startsWith('/dashboard')) {
-    // Check for Supabase auth cookies
-    const hasSbCookie = request.cookies.getAll().some(
-      cookie => cookie.name.startsWith('sb-')
-    )
+    const hasFirebaseSession = Boolean(request.cookies.get('__session'))
 
-    if (!hasSbCookie) {
+    if (!hasFirebaseSession) {
       const loginUrl = new URL('/login', request.url)
       return NextResponse.redirect(loginUrl)
     }

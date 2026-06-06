@@ -1,29 +1,23 @@
 import { redirect } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
 import Sidebar from '@/components/Sidebar'
+import { getCurrentUser } from '@/lib/firebase/session'
+
+export const dynamic = 'force-dynamic'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await getCurrentUser()
 
   if (!user) {
     redirect('/login')
   }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('full_name, plan, certification_status')
-    .eq('id', user.id)
-    .single()
-
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-[#fffaf2]">
       <Sidebar
-        fullName={profile?.full_name || null}
-        email={user.email || ''}
-        plan={profile?.plan || 'free'}
-        certificationStatus={profile?.certification_status || null}
+        fullName={user.fullName}
+        email={user.email}
+        plan={user.plan}
+        certificationStatus={user.certificationStatus}
       />
       <main className="flex-1 md:ml-64 pt-14 md:pt-0">
         {children}

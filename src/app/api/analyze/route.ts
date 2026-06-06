@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
-import { createClient } from '@/lib/supabase/server'
+import { getCurrentUser } from '@/lib/firebase/session'
+import { getFirebaseAdminDb } from '@/lib/firebase/admin'
 import { LENSES, LensId } from '@/lib/lenses'
 
 function getWeekStart(): string {
@@ -13,10 +14,8 @@ function getWeekStart(): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
-
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    if (authError || !user) {
+    const user = await getCurrentUser()
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -26,26 +25,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    // Check profile plan
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('plan')
-      .eq('id', user.id)
-      .single()
-
-    const isPro = profile?.plan === 'pro'
+    const db = getFirebaseAdminDb()
+    const isPro = user.plan === 'pro'
 
     if (!isPro) {
-      // Check weekly usage
       const weekStart = getWeekStart()
-      const { data: usage } = await supabase
-        .from('usage')
-        .select('count')
-        .eq('practitioner_id', user.id)
-        .eq('week_start', weekStart)
-        .single()
-
-      const currentCount = usage?.count || 0
+      const usageRef = db.collection('usage').doc(`${user.id}_${weekStart}`)
+      const usageSnapshot = await usageRef.get()
+      const currentCount = usageSnapshot.exists ? usageSnapshot.data()?.count || 0 : 0
       if (currentCount >= 10) {
         return NextResponse.json(
           { error: 'Weekly limit reached. Upgrade to Pro for unlimited analyses.' },
@@ -77,42 +64,33 @@ export async function POST(request: NextRequest) {
 
     const result = message.content[0].type === 'text' ? message.content[0].text : ''
 
-    // Save analysis
-    const { data: analysis, error: saveError } = await supabase
-      .from('analyses')
-      .insert({
-        session_id,
-        practitioner_id: user.id,
-        client_id,
-        lens_id,
-        result,
-      })
-      .select()
-      .single()
+    const analysisRef = await db.collection('analyses').add({
+      sessionId: session_id || null,
+      userId: user.id,
+      clientId: client_id || null,
+      lensId: lens_id,
+      result,
+      createdAt: new Date().toISOString(),
+    })
 
-    if (saveError) {
-      console.error('Save error:', saveError)
-    }
-
-    // Update usage
     const weekStart = getWeekStart()
     try {
-      const { error: rpcError } = await supabase.rpc('increment_usage', {
-        p_practitioner_id: user.id,
-        p_week_start: weekStart,
+      const usageRef = db.collection('usage').doc(`${user.id}_${weekStart}`)
+      await db.runTransaction(async (transaction) => {
+        const usageSnapshot = await transaction.get(usageRef)
+        const count = usageSnapshot.exists ? usageSnapshot.data()?.count || 0 : 0
+        transaction.set(usageRef, {
+          userId: user.id,
+          weekStart,
+          count: count + 1,
+          updatedAt: new Date().toISOString(),
+        }, { merge: true })
       })
-      if (rpcError) {
-        await supabase.from('usage').upsert({
-          practitioner_id: user.id,
-          week_start: weekStart,
-          count: 1,
-        }, { onConflict: 'practitioner_id,week_start' })
-      }
     } catch {
       // Ignore usage tracking errors
     }
 
-    return NextResponse.json({ result, analysis_id: analysis?.id })
+    return NextResponse.json({ result, analysis_id: analysisRef.id })
   } catch (error) {
     console.error('Analysis error:', error)
     return NextResponse.json({ error: 'Analysis failed' }, { status: 500 })

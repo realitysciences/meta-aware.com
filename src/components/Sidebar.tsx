@@ -3,9 +3,29 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, Users, FileAudio, Brain, FileText, GraduationCap, LogOut, Award, Menu, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { signOut } from 'firebase/auth'
+import { getFirebaseAuth } from '@/lib/firebase/client'
+import {
+  BookOpen,
+  ChevronDown,
+  CircleHelp,
+  Clock,
+  FileText,
+  Home,
+  Layers3,
+  Link2,
+  Lock,
+  LogOut,
+  Map,
+  Menu,
+  MessageSquare,
+  Mic,
+  Settings,
+  ShieldCheck,
+  Sparkles,
+  X,
+} from 'lucide-react'
 
 interface SidebarProps {
   fullName: string | null
@@ -15,26 +35,38 @@ interface SidebarProps {
 }
 
 const navItems = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { label: 'Clients', href: '/dashboard/clients', icon: Users },
-  { label: 'Sessions', href: '/dashboard/sessions/new', icon: FileAudio },
-  { label: 'Analyses', href: '/dashboard/analyses', icon: Brain },
-  { label: 'Reports', href: '/dashboard/reports', icon: FileText },
+  { label: 'Dashboard', href: '/dashboard', icon: Home },
+  { label: 'Speak / Voice Session', href: '/voice-session', icon: Mic },
+  { label: 'Talk to AI', href: '/talk-to-ai', icon: MessageSquare },
+  { label: 'My Self-Map (24 Domains)', href: '/self-map', icon: Map },
 ]
 
-export default function Sidebar({ fullName, email, plan, certificationStatus }: SidebarProps) {
+const lowerNavItems = [
+  { label: 'Reflections', href: '/reflections', icon: Sparkles },
+  { label: 'Reports & Insights', href: '/dashboard/reports', icon: FileText },
+  { label: 'Timeline & Comparisons', href: '/timeline', icon: Clock },
+  { label: 'Connections & Patterns', href: '/patterns', icon: Link2 },
+  { label: 'Guidance & Exercises', href: '/guidance', icon: BookOpen },
+  { label: 'How It Works', href: '/#how-it-works', icon: CircleHelp },
+  { label: 'Settings', href: '/dashboard/settings', icon: Settings },
+]
+
+const sourceItems = ['Voice Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
+
+export default function Sidebar({ fullName, email, plan }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const displayName = fullName || 'David'
+  const initials = (displayName || email || 'D').charAt(0).toUpperCase()
 
-  // Close sidebar when route changes on mobile
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
 
   async function handleSignOut() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
+    await signOut(getFirebaseAuth()).catch(() => null)
+    await fetch('/api/auth/session', { method: 'DELETE' })
     router.push('/login')
     router.refresh()
   }
@@ -45,108 +77,110 @@ export default function Sidebar({ fullName, email, plan, certificationStatus }: 
   }
 
   const sidebarContent = (
-    <aside className={`
-      w-64 bg-[#0f1f1c] min-h-screen flex flex-col
-      fixed left-0 top-0 bottom-0 z-40
-      transition-transform duration-300 ease-in-out
-      ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}
-      md:translate-x-0
-    `}>
-      {/* Logo */}
-      <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
-        <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-10 w-auto" />
-        <button
-          onClick={() => setMobileOpen(false)}
-          className="md:hidden text-white/40 hover:text-white/70 transition-colors"
-        >
-          <X size={20} />
-        </button>
+    <aside
+      className={`
+        fixed bottom-0 left-0 top-0 z-40 flex min-h-screen w-64 flex-col border-r border-[#ead7b9]
+        bg-[#fffaf2] shadow-[18px_0_40px_rgba(48,27,5,0.05)] transition-transform duration-300 ease-in-out
+        ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
+      `}
+    >
+      <div className="px-4 pb-4 pt-5">
+        <div className="flex items-start justify-between gap-2">
+          <Link href="/dashboard" aria-label="Meta-Aware dashboard">
+            <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-16 w-auto object-contain" priority />
+          </Link>
+          <button onClick={() => setMobileOpen(false)} className="mt-1 rounded-full p-1 text-[#06183a]/50 hover:bg-[#f4eadb] md:hidden" aria-label="Close menu">
+            <X size={20} />
+          </button>
+        </div>
+        <p className="-mt-1 pl-1 text-xs font-semibold text-[#314164]">Speak. Reflect. Understand. Transform.</p>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        {navItems.map(item => {
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
+        {navItems.map((item) => {
           const Icon = item.icon
           const active = isActive(item.href)
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 text-sm font-bold transition ${
                 active
-                  ? 'bg-[#1d9e75]/20 text-[#1d9e75]'
-                  : 'text-white/60 hover:text-white/90 hover:bg-white/5'
+                  ? 'border-[#d9a461] bg-[#fff2df] text-[#5b3609] shadow-[0_8px_18px_rgba(201,124,30,0.1)]'
+                  : 'border-transparent text-[#06183a] hover:bg-white/70'
               }`}
             >
-              <Icon size={18} />
+              <Icon className={`h-5 w-5 ${active ? 'text-[#c97c1e]' : 'text-[#173563]'}`} />
               {item.label}
             </Link>
           )
         })}
 
-        {/* Academy - coming soon */}
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/30 cursor-not-allowed">
-          <GraduationCap size={18} />
-          Academy
-          <span className="ml-auto text-[10px] bg-white/10 text-white/40 px-1.5 py-0.5 rounded">Soon</span>
+        <div className="rounded-lg px-3 py-2">
+          <div className="flex items-center gap-3 text-sm font-bold text-[#06183a]">
+            <Layers3 className="h-5 w-5 text-[#173563]" />
+            Map Sources
+            <ChevronDown className="ml-auto h-4 w-4 text-[#173563]" />
+          </div>
+          <div className="ml-[9px] mt-2 space-y-2 border-l border-[#d8c4a7] pl-6">
+            {sourceItems.map((item) => (
+              <Link key={item} href={`/map-sources/${item.toLowerCase().replaceAll(' ', '-')}`} className="flex items-center gap-2 text-xs font-semibold text-[#314164] hover:text-[#a45f0d]">
+                <span className="h-2 w-2 rounded-full bg-[#cfc0a8]" />
+                {item}
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {lowerNavItems.map((item) => {
+          const Icon = item.icon
+          const active = isActive(item.href)
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold transition ${active ? 'bg-[#fff2df] text-[#5b3609]' : 'text-[#06183a] hover:bg-white/70'}`}
+            >
+              <Icon className="h-5 w-5 text-[#173563]" />
+              {item.label}
+            </Link>
+          )
+        })}
       </nav>
 
-      {/* User info + sign out */}
-      <div className="px-4 py-4 border-t border-white/10">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-[#1d9e75]/20 flex items-center justify-center text-[#1d9e75] text-xs font-bold">
-            {(fullName || email).charAt(0).toUpperCase()}
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-white text-xs font-medium truncate">{fullName || email}</div>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className={`text-[10px] px-1.5 py-0.5 rounded font-semibold ${
-                plan === 'pro' ? 'bg-[#1d9e75]/20 text-[#1d9e75]' : 'bg-white/10 text-white/40'
-              }`}>
-                {plan === 'pro' ? 'PRO' : 'FREE'}
-              </span>
-              {certificationStatus && (
-                <span className="text-[10px] text-[#1d9e75]/70 flex items-center gap-0.5">
-                  <Award size={10} />
-                  {certificationStatus}
-                </span>
-              )}
-            </div>
-          </div>
+      <div className="space-y-3 px-4 pb-4">
+        <div className="rounded-xl border border-[#ead7b9] bg-white/72 p-3">
+          <p className="flex items-center gap-2 text-xs font-black text-[#a45f0d]"><Lock className="h-4 w-4" />Private. Secure. Yours alone.</p>
+          <p className="mt-2 text-xs leading-5 text-[#314164]">End-to-end encrypted. Your data is never shared.</p>
+          <Link href="/privacy" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#d3b98f] bg-white/80 px-3 py-2 text-xs font-bold">
+            View Privacy Center <ShieldCheck className="h-4 w-4" />
+          </Link>
         </div>
-        <button
-          onClick={handleSignOut}
-          className="flex items-center gap-2 text-white/40 hover:text-white/70 text-xs w-full transition-colors"
-        >
-          <LogOut size={14} />
-          Sign out
-        </button>
+
+        <div className="flex items-center gap-3 rounded-xl border border-[#ead7b9] bg-white/72 p-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2c78c] to-[#8a4b25] font-serif text-lg font-bold text-white">{initials}</div>
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-serif text-lg leading-tight text-[#06183a]">{displayName}</p>
+            <p className="text-xs font-semibold text-[#4c3a87]">{plan === 'pro' ? 'Premium Member' : 'Member'}</p>
+          </div>
+          <button onClick={handleSignOut} className="rounded-full p-2 text-[#314164] hover:bg-[#f4eadb]" aria-label="Sign out">
+            <LogOut className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </aside>
   )
 
   return (
     <>
-      {/* Mobile top bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-30 bg-[#0f1f1c] h-14 flex items-center px-4 border-b border-white/10">
-        <button
-          onClick={() => setMobileOpen(true)}
-          className="text-white/70 hover:text-white transition-colors"
-        >
+      <div className="fixed left-0 right-0 top-0 z-30 flex h-14 items-center border-b border-[#ead7b9] bg-[#fffaf2]/96 px-4 shadow-[0_10px_28px_rgba(48,27,5,0.06)] backdrop-blur md:hidden">
+        <button onClick={() => setMobileOpen(true)} className="rounded-full p-2 text-[#06183a]" aria-label="Open menu">
           <Menu size={22} />
         </button>
-        <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-8 w-auto mx-auto" />
+        <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="mx-auto h-8 w-auto" />
       </div>
 
-      {/* Backdrop */}
-      {mobileOpen && (
-        <div
-          className="md:hidden fixed inset-0 bg-black/50 z-30"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
+      {mobileOpen && <button aria-label="Close menu overlay" className="fixed inset-0 z-30 bg-[#06183a]/45 md:hidden" onClick={() => setMobileOpen(false)} />}
       {sidebarContent}
     </>
   )

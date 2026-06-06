@@ -4,7 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { getFirebaseAuth } from '@/lib/firebase/client'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -13,20 +14,46 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
+  async function finishFirebaseLogin(idToken: string) {
+    const response = await fetch('/api/auth/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Could not create your session.')
+    }
+
+    router.push('/dashboard')
+    router.refresh()
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
     setError('')
 
-    const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-
-    if (error) {
-      setError(error.message)
+    try {
+      const credential = await signInWithEmailAndPassword(getFirebaseAuth(), email, password)
+      await finishFirebaseLogin(await credential.user.getIdToken())
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Sign in failed.')
       setLoading(false)
-    } else {
-      router.push('/dashboard')
-      router.refresh()
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    setLoading(true)
+    setError('')
+
+    try {
+      const provider = new GoogleAuthProvider()
+      const credential = await signInWithPopup(getFirebaseAuth(), provider)
+      await finishFirebaseLogin(await credential.user.getIdToken())
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Google sign-in failed.')
+      setLoading(false)
     }
   }
 
@@ -71,6 +98,20 @@ export default function LoginPage() {
             className="w-full bg-[#0a6b5e] text-white py-2.5 rounded-lg font-semibold text-sm hover:bg-[#0d7f6f] transition-colors disabled:opacity-60 disabled:cursor-not-allowed mt-2"
           >
             {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+          <div className="flex items-center gap-3 py-2">
+            <span className="h-px flex-1 bg-gray-200" />
+            <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">or</span>
+            <span className="h-px flex-1 bg-gray-200" />
+          </div>
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <span className="text-lg font-bold text-[#4285f4]">G</span>
+            Continue with Google
           </button>
           <p className="text-center text-sm text-gray-500 pt-2">
             Don&apos;t have an account?{' '}

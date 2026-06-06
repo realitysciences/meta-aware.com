@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { createAdminClient } from '@/lib/supabase/admin'
+import { getFirebaseAdminDb } from '@/lib/firebase/admin'
 
 export async function POST(request: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -22,25 +22,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
-  const supabase = createAdminClient()
+  const db = getFirebaseAdminDb()
 
   try {
     if (event.type === 'customer.subscription.created' || event.type === 'customer.subscription.updated') {
       const subscription = event.data.object as Stripe.Subscription
       const customerId = subscription.customer as string
 
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('stripe_customer_id', customerId)
-        .single()
+      const profiles = await db.collection('profiles')
+        .where('stripeCustomerId', '==', customerId)
+        .limit(1)
+        .get()
 
-      if (profile) {
+      if (!profiles.empty) {
         const plan = subscription.status === 'active' ? 'pro' : 'free'
-        await supabase
-          .from('profiles')
-          .update({ plan })
-          .eq('id', profile.id)
+        await profiles.docs[0].ref.set({ plan, updatedAt: new Date().toISOString() }, { merge: true })
       }
     }
 
@@ -48,17 +44,13 @@ export async function POST(request: NextRequest) {
       const subscription = event.data.object as Stripe.Subscription
       const customerId = subscription.customer as string
 
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('stripe_customer_id', customerId)
-        .single()
+      const profiles = await db.collection('profiles')
+        .where('stripeCustomerId', '==', customerId)
+        .limit(1)
+        .get()
 
-      if (profile) {
-        await supabase
-          .from('profiles')
-          .update({ plan: 'free' })
-          .eq('id', profile.id)
+      if (!profiles.empty) {
+        await profiles.docs[0].ref.set({ plan: 'free', updatedAt: new Date().toISOString() }, { merge: true })
       }
     }
 

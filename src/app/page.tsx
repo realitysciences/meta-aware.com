@@ -17,7 +17,16 @@ import {
   X,
 } from 'lucide-react'
 
-const navItems = ['How It Works', 'The 24-Domain Map', 'Reports', 'For Professionals', 'About', 'Resources', 'Pricing']
+const navItems = [
+  { label: 'Dashboard', href: '/dashboard' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'The 24-Domain Map', href: '#the-24-domain-map' },
+  { label: 'Reports', href: '#reports' },
+  { label: 'For Professionals', href: '#for-professionals' },
+  { label: 'About', href: '#about' },
+  { label: 'Resources', href: '#resources' },
+  { label: 'Pricing', href: '#pricing' },
+]
 
 const trustItems = [
   { icon: ShieldCheck, title: '100% Private', copy: 'Your data is encrypted and never shared.' },
@@ -103,15 +112,16 @@ export default function HomePage() {
             />
           </Link>
 
-          <nav className="hidden flex-1 items-center justify-center gap-8 text-[13px] font-bold lg:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-5 text-[13px] font-bold lg:flex xl:gap-8">
             {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`} className="whitespace-nowrap transition hover:text-[#a45f0d]">
-                {item}
-              </a>
+              <Link key={item.label} href={item.href} className="whitespace-nowrap transition hover:text-[#a45f0d]">
+                {item.label}
+              </Link>
             ))}
           </nav>
 
           <div className="flex shrink-0 items-center gap-4">
+            <Link href="/dashboard" className="hidden text-[13px] font-bold sm:inline lg:hidden">Dashboard</Link>
             <Link href="/login" className="hidden text-[13px] font-bold sm:inline">Log in</Link>
             <Link href="/signup" className="inline-flex items-center gap-2 rounded-[10px] bg-[#06183a] px-3 py-2.5 text-left text-[11px] font-bold text-white shadow-[0_14px_30px_rgba(6,24,58,0.18)] sm:gap-3 sm:px-4 sm:py-3 sm:text-xs">
               <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -419,7 +429,7 @@ export default function HomePage() {
             <span>Speak. Reflect. Understand. Transform.</span>
           </div>
           <div className="hidden gap-7 md:flex">
-            {navItems.slice(0, 5).map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</a>)}
+            {navItems.slice(0, 5).map((item) => <Link key={item.label} href={item.href}>{item.label}</Link>)}
           </div>
           <p>© {new Date().getFullYear()} Meta-Aware. All rights reserved.</p>
         </footer>
