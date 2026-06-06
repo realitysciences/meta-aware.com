@@ -142,7 +142,7 @@ export default function HomePage() {
           </div>
         </header>
 
-        <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-stretch">
+        <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-start">
           <div className="flex flex-col justify-start pb-3 pt-0 sm:min-h-[470px] md:pl-4">
             <p className="mb-3 max-w-[430px] text-sm font-black uppercase tracking-[0.18em] text-[#a45f0d]">
               Private voice reflection. Whole-person mapping.
