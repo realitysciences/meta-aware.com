@@ -16,6 +16,7 @@ import {
   Users,
   X,
 } from 'lucide-react'
+import LandingAuthActions from '@/components/LandingAuthActions'
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard' },
@@ -120,18 +121,7 @@ export default function HomePage() {
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-4">
-            <Link href="/dashboard" className="hidden text-[13px] font-bold sm:inline lg:hidden">Dashboard</Link>
-            <Link href="/login" className="hidden text-[13px] font-bold sm:inline">Log in</Link>
-            <Link href="/signup" className="inline-flex items-center gap-2 rounded-[10px] bg-[#06183a] px-3 py-2.5 text-left text-[11px] font-bold text-white shadow-[0_14px_30px_rgba(6,24,58,0.18)] sm:gap-3 sm:px-4 sm:py-3 sm:text-xs">
-              <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="sm:hidden">Start</span>
-              <span className="hidden sm:inline">
-                Start Voice Session
-                <span className="block text-[9px] font-semibold text-white/72">One session. One reflection.</span>
-              </span>
-            </Link>
-          </div>
+          <LandingAuthActions />
           </div>
         </header>
 

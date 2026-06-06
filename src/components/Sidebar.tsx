@@ -30,6 +30,7 @@ import {
 interface SidebarProps {
   fullName: string | null
   email: string
+  photoURL?: string | null
   plan: string
   certificationStatus: string | null
 }
@@ -53,7 +54,7 @@ const lowerNavItems = [
 
 const sourceItems = ['Voice Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
 
-export default function Sidebar({ fullName, email, plan }: SidebarProps) {
+export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProps) {
   const pathname = usePathname()
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -158,7 +159,11 @@ export default function Sidebar({ fullName, email, plan }: SidebarProps) {
         </div>
 
         <div className="flex items-center gap-3 rounded-xl border border-[#ead7b9] bg-white/72 p-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2c78c] to-[#8a4b25] font-serif text-lg font-bold text-white">{initials}</div>
+          {photoURL ? (
+            <Image src={photoURL} alt={displayName} width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover" />
+          ) : (
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2c78c] to-[#8a4b25] font-serif text-lg font-bold text-white">{initials}</div>
+          )}
           <div className="min-w-0 flex-1">
             <p className="truncate font-serif text-lg leading-tight text-[#06183a]">{displayName}</p>
             <p className="text-xs font-semibold text-[#4c3a87]">{plan === 'pro' ? 'Premium Member' : 'Member'}</p>

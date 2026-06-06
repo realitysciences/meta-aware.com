@@ -16,6 +16,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <Sidebar
         fullName={user.fullName}
         email={user.email}
+        photoURL={user.photoURL}
         plan={user.plan}
         certificationStatus={user.certificationStatus}
       />

@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
     await getFirebaseAdminDb().collection('profiles').doc(decoded.uid).set({
       email: user.email || '',
       fullName: user.displayName || null,
+      photoURL: user.photoURL || null,
       plan: 'free',
       updatedAt: new Date().toISOString(),
     }, { merge: true })

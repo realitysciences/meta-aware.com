@@ -6,6 +6,7 @@ export interface AppUser {
   id: string
   email: string
   fullName: string | null
+  photoURL: string | null
   plan: string
   certificationStatus: string | null
 }
@@ -29,6 +30,7 @@ export async function getCurrentUser(): Promise<AppUser | null> {
       id: decoded.uid,
       email: user.email || '',
       fullName: typeof profile?.fullName === 'string' ? profile.fullName : user.displayName || null,
+      photoURL: typeof profile?.photoURL === 'string' ? profile.photoURL : user.photoURL || null,
       plan: typeof profile?.plan === 'string' ? profile.plan : 'free',
       certificationStatus: typeof profile?.certificationStatus === 'string' ? profile.certificationStatus : null,
     }
