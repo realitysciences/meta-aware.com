@@ -52,7 +52,7 @@ const lowerNavItems = [
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
-const sourceItems = ['Mapping Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
+const sourceItems = ['Voice Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
 
 export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProps) {
   const pathname = usePathname()
