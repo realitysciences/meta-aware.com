@@ -37,8 +37,8 @@ interface SidebarProps {
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
-  { label: 'Speak / Voice Session', href: '/voice-session', icon: Mic },
-  { label: 'Talk to AI', href: '/talk-to-ai', icon: MessageSquare },
+  { label: 'Map Sessions', href: '/voice-session', icon: Mic },
+  { label: 'Reality Scientist AI', href: '/talk-to-ai', icon: MessageSquare },
   { label: 'My Self-Map (24 Domains)', href: '/dashboard/self-map', icon: Map },
 ]
 
@@ -52,7 +52,7 @@ const lowerNavItems = [
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
-const sourceItems = ['Voice Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
+const sourceItems = ['Mapping Sessions', 'Artifacts', 'Lens Scans', 'Journals', 'Transcripts']
 
 export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProps) {
   const pathname = usePathname()

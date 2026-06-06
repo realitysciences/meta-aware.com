@@ -40,7 +40,7 @@ const processSteps = [
   { icon: Mic, title: 'Speak', copy: 'Share your story through guided voice sessions.' },
   { icon: BookOpen, title: 'Reflect', copy: 'Every completed unit returns a personal reflection.' },
   { icon: Sparkles, title: 'Build', copy: 'Your map grows across 24 domains.' },
-  { icon: MessageSquare, title: 'Talk', copy: 'Speak or chat with Reality Scientist AI anytime.' },
+  { icon: MessageSquare, title: 'Talk', copy: 'Talk with your map through Reality Scientist AI.' },
   { icon: BarChart3, title: 'Deepen', copy: 'Artifacts, future sessions, and life events increase resolution over time.' },
 ]
 
@@ -56,7 +56,7 @@ const atlasDomains = [
 ]
 
 const inputItems = [
-  { icon: Mic, title: 'Voice Sessions', copy: 'Capture your story in your own words.' },
+  { icon: Mic, title: 'Map Sessions', copy: 'Add structured source material to your map.' },
   { icon: FileText, title: 'Artifacts', copy: 'Photos, documents, notes and messages add historical evidence.' },
   { icon: Sparkles, title: 'Reflections', copy: 'Every unit returns insight that builds self-awareness.' },
   { icon: BarChart3, title: 'Reports', copy: 'Domain reports reveal patterns and themes across your life.' },
@@ -167,7 +167,7 @@ export default function HomePage() {
               <Link href="/signup" className="inline-flex min-w-0 items-center gap-2 rounded-[9px] bg-[#06183a] px-3 py-3 text-xs font-bold text-white sm:min-w-[162px] sm:gap-3 sm:px-4 sm:py-4 sm:text-sm">
                 <Mic className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />
                 <span>
-                  Start Voice Session
+                  Start Mapping Session
                   <span className="block text-[10px] font-semibold text-white/75">One session. One reflection.</span>
                 </span>
               </Link>
@@ -326,7 +326,7 @@ export default function HomePage() {
 
         <section className="mt-4 grid gap-4 md:grid-cols-[0.48fr_0.52fr]">
           <CardShell className="p-4 sm:p-6">
-            <h2 className="text-center font-serif text-2xl sm:text-3xl">Talk to Reality Scientist AI from day one.</h2>
+            <h2 className="text-center font-serif text-2xl sm:text-3xl">Talk with Reality Scientist AI from day one.</h2>
             <p className="mt-2 text-center text-[15px] font-semibold">It is available now, and it gets sharper as your map reveals how experience routes through you.</p>
             <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
               {[
@@ -454,11 +454,11 @@ export default function HomePage() {
             <div>
               <h2 className="font-serif text-2xl sm:text-3xl">Start with one voice session.</h2>
               <p className="mt-1 text-base text-[#f0a638] sm:text-lg">Leave with one reflection. Begin your Atlas.</p>
-              <p className="text-sm font-semibold">Start talking to Reality Scientist AI today.</p>
+              <p className="text-sm font-semibold">Build the map first. Then talk with it through Reality Scientist AI.</p>
             </div>
             <Link href="/signup" className="inline-flex items-center justify-center gap-3 rounded-[9px] bg-[#4b35e8] px-5 py-3 text-sm font-black sm:px-8 sm:py-4">
               <Mic className="h-6 w-6" />
-              Start Voice Session
+              Start Mapping Session
             </Link>
             <a href="#sample-atlas" className="inline-flex items-center justify-center gap-3 rounded-[9px] border border-white/40 px-5 py-3 text-sm font-black sm:px-8 sm:py-4">
               See Sample Atlas

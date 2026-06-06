@@ -66,7 +66,7 @@ export default function LandingAuthActions() {
         <Mic className="h-4 w-4 sm:h-5 sm:w-5" />
         <span className="sm:hidden">Start</span>
         <span className="hidden sm:inline">
-          Start Voice Session
+          Start Mapping Session
           <span className="block text-[9px] font-semibold text-white/72">One session. One reflection.</span>
         </span>
       </Link>

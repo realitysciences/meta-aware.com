@@ -34,7 +34,7 @@ const atlasStats = [
 const activities = [
   { type: 'Reflection Added', title: 'Shame / Self-Worth', meta: 'Unlocked today', icon: Sparkles, color: '#5a31b5' },
   { type: 'Lens Scan Completed', title: 'Attachment Pattern', meta: 'From Family System intake', icon: FileText, color: '#0f8a77' },
-  { type: 'Voice Session', title: 'Family System · Unit 4', meta: 'Completed', icon: Mic, color: '#d64d75' },
+  { type: 'Mapping Session', title: 'Family System · Unit 4', meta: 'Completed', icon: Mic, color: '#d64d75' },
   { type: 'Synthesis Thread', title: 'Approval & Safety', meta: 'Strengthening', icon: Sparkles, color: '#e39b32' },
 ]
 
@@ -142,8 +142,8 @@ export default function DashboardPage() {
                 <h2 className="font-serif text-4xl leading-tight">Your Next Best Step<br />Continue Family System</h2>
                 <p className="mt-3 max-w-xl text-sm leading-6 text-white/86">You&apos;ve completed 62% of this area. Completing 2 more modules will unlock your Family System Domain Report.</p>
                 <div className="mt-5 flex flex-wrap gap-3">
-                  <ButtonLink href="/voice-session"><Mic className="h-5 w-5" />Continue Voice Session</ButtonLink>
-                  <ButtonLink href="/talk-to-ai" variant="outline"><MessageSquare className="h-5 w-5" />Ask Reality Scientist AI</ButtonLink>
+                  <ButtonLink href="/voice-session"><Mic className="h-5 w-5" />Continue Mapping Session</ButtonLink>
+                  <ButtonLink href="/talk-to-ai" variant="outline"><MessageSquare className="h-5 w-5" />Talk with Reality Scientist AI</ButtonLink>
                 </div>
                 <Link href="/dashboard/self-map" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ffd17a] underline decoration-[#ffd17a]/40 underline-offset-4">View Progress <ArrowRight className="h-4 w-4" /></Link>
               </div>
@@ -155,15 +155,15 @@ export default function DashboardPage() {
               <div className="grid gap-4 sm:grid-cols-[86px_1fr]">
                 <Image src="/assets/dashboard/reality-scientist-ai-clean.png" alt="Reality Scientist AI symbol" width={226} height={167} className="h-20 w-20 rounded-full object-cover" />
                 <div>
-                  <h2 className="font-serif text-2xl">Talk to Reality Scientist AI</h2>
-                  <p className="mt-2 text-sm leading-6 text-[#344263]">Ask about a decision, relationship, pattern, emotion, or next step. I&apos;ll respond from what your map currently knows.</p>
+                  <h2 className="font-serif text-2xl">Talk with Reality Scientist AI</h2>
+                  <p className="mt-2 text-sm leading-6 text-[#344263]">Use your current map to think through a decision, relationship, pattern, emotion, or next step.</p>
                 </div>
               </div>
               <div className="mt-4 flex flex-wrap gap-3">
                 <ButtonLink href="/talk-to-ai?mode=voice" variant="purple"><Mic className="h-4 w-4" />Talk by Voice</ButtonLink>
                 <ButtonLink href="/talk-to-ai?mode=chat" variant="outline"><MessageSquare className="h-4 w-4" />Chat Instead</ButtonLink>
               </div>
-              <p className="mt-3 text-sm text-[#4c3a87]">Available now. Gets sharper as your map deepens.</p>
+              <p className="mt-3 text-sm text-[#4c3a87]">Reality Scientist AI may remember useful context, but Mapping Sessions are the primary way to build structured map data.</p>
               <p className="mt-1 text-xs font-semibold text-[#344263]">AI Context: Medium</p>
             </Card>
 

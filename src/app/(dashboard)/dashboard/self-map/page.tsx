@@ -54,7 +54,7 @@ const insights = [
 const actions = [
   ['Apply Lens to Family Intake', 'Attachment Pattern lens suggested', 'action-apply-lens.svg', '/map-sources/lens-scans?family-system'],
   ['Ask Reality Scientist AI about this domain', 'Get insight and next-step guidance', 'action-ask-ai.svg', '/talk-to-ai?domain=family-system'],
-  ['Start a Voice Session', 'Speak and deepen your understanding', 'action-voice-session.svg', '/voice-session'],
+  ['Start a Mapping Session', 'Add structured source material to your map', 'action-voice-session.svg', '/voice-session'],
   ['Add a Reflection', 'Capture what you’re seeing and feeling', 'action-add-reflection.svg', '/reflections/new'],
 ]
 
@@ -363,7 +363,7 @@ function DomainGridView({ onReturnToAtlas }: { onReturnToAtlas: () => void }) {
               {[
                 ['Ask AI about any domain', '/talk-to-ai'],
                 ['Apply a Lens to your intake', '/map-sources/lens-scans'],
-                ['Start a Voice Session', '/voice-session'],
+                ['Start a Mapping Session', '/voice-session'],
                 ['Add a Reflection', '/reflections/new'],
               ].map(([label, href]) => (
                 <Link key={label} href={href} className="flex items-center justify-between rounded-lg px-2 py-2 text-sm font-black hover:bg-[#fff2df]">
