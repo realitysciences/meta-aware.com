@@ -206,7 +206,7 @@ function SelectedSessionPanel() {
         <Mic className="h-5 w-5" />
         Start Mother Function Session
       </Link>
-      <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="mt-2 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-[#b9c9ff] bg-white px-5 py-3 text-sm font-black text-[#174fbe]">
+      <Link href="/voice-session/family-system/mother-function/text-chat" className="mt-2 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-[#b9c9ff] bg-white px-5 py-3 text-sm font-black text-[#174fbe]">
         <MessageSquare className="h-5 w-5" />
         Start as Guided Intake Chat
       </Link>
@@ -303,7 +303,7 @@ export default function VoiceSessionPage() {
                   <p className="text-sm font-semibold text-[#344263]">Use Guided Intake Chat — the AI asks structured questions and turns your answers into map material.</p>
                 </div>
               </div>
-              <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#176dff] px-4 py-2.5 text-xs font-black text-white">
+              <Link href="/voice-session/family-system/mother-function/text-chat" className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#176dff] px-4 py-2.5 text-xs font-black text-white">
                 Start Guided Intake Chat <ArrowRight className="h-4 w-4" />
               </Link>
             </Card>
