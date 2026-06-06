@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation'
-import DashboardAccountBar from '@/components/DashboardAccountBar'
 import Sidebar from '@/components/Sidebar'
 import { getCurrentUser } from '@/lib/firebase/session'
 
@@ -22,12 +21,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
         certificationStatus={user.certificationStatus}
       />
       <main className="flex-1 md:ml-64 pt-14 md:pt-0">
-        <DashboardAccountBar
-          fullName={user.fullName}
-          email={user.email}
-          photoURL={user.photoURL}
-          plan={user.plan}
-        />
         {children}
       </main>
     </div>
