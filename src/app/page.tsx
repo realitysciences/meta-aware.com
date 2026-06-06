@@ -339,7 +339,7 @@ export default function HomePage() {
                   <p className="mt-2 min-h-[64px] text-xs font-semibold leading-5">{copy}</p>
                   <Waveform color={color} />
                   <div className="relative mx-auto mt-2 aspect-square max-w-[135px] overflow-hidden rounded-full opacity-70">
-                    <Image src="/assets/domain-radial-map.png" alt="" fill sizes="135px" className="object-cover opacity-35" />
+                    <Image src="/assets/domain-radial-map.png" alt="" aria-hidden="true" fill sizes="135px" className="object-cover opacity-35" />
                     <CircleUserRound className="absolute bottom-2 left-1/2 h-12 w-12 -translate-x-1/2" style={{ color }} />
                   </div>
                 </div>
@@ -449,7 +449,7 @@ export default function HomePage() {
         <section id="pricing" className="mt-4 overflow-hidden rounded-[14px] bg-[#06183a] text-white">
           <div className="grid items-center gap-4 p-4 sm:gap-5 sm:p-5 md:grid-cols-[0.2fr_1fr_auto_auto]">
             <div className="relative hidden h-20 overflow-hidden rounded-[10px] md:block">
-              <Image src="/assets/voice-waveform-hero.png" alt="" fill sizes="220px" className="object-cover" />
+              <Image src="/assets/voice-waveform-hero.png" alt="" aria-hidden="true" fill sizes="220px" className="object-cover" />
             </div>
             <div>
               <h2 className="font-serif text-2xl sm:text-3xl">Start with one voice session.</h2>
@@ -466,7 +466,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <footer className="flex flex-col items-center justify-between gap-3 py-4 text-center text-[11px] font-semibold text-[#44506b] md:flex-row md:py-3 md:text-left">
+        <footer id="about" className="flex flex-col items-center justify-between gap-3 py-4 text-center text-[11px] font-semibold text-[#44506b] md:flex-row md:py-3 md:text-left">
           <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
             <Image src="/assets/meta-aware-icon.png" alt="Meta-Aware icon" width={1254} height={1254} className="h-5 w-5 object-contain" />
             <span>META-AWARE</span>
