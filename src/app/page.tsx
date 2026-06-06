@@ -107,7 +107,7 @@ function Waveform({ color = '#3047ff' }: { color?: string }) {
 
 function CardShell({ children, className = '', id }: { children: React.ReactNode; className?: string; id?: string }) {
   return (
-    <section id={id} className={`rounded-[18px] border border-[#eadfce] bg-white/62 shadow-[0_10px_34px_rgba(42,25,7,0.045)] ${id ? 'scroll-mt-20' : ''} ${className}`}>
+    <section id={id} className={`rounded-[18px] border border-[#eadfce] bg-white/62 shadow-[0_10px_34px_rgba(42,25,7,0.045)] ${className}`}>
       {children}
     </section>
   )
@@ -262,7 +262,7 @@ export default function HomePage() {
           ))}
         </CardShell>
 
-        <section id="why-different" className="mt-4 scroll-mt-20 grid gap-4 md:grid-cols-[0.36fr_0.64fr]">
+        <section id="why-different" className="mt-4 grid gap-4 md:grid-cols-[0.36fr_0.64fr]">
           <CardShell className="bg-[#06183a] p-5 text-white sm:p-7">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f0a638]">Why Meta-Aware is different</p>
             <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">It does not just summarize your story. It maps how experience moves through you.</h2>
@@ -446,7 +446,7 @@ export default function HomePage() {
           </div>
         </CardShell>
 
-        <section id="pricing" className="mt-4 scroll-mt-20 overflow-hidden rounded-[14px] bg-[#06183a] text-white">
+        <section id="pricing" className="mt-4 overflow-hidden rounded-[14px] bg-[#06183a] text-white">
           <div className="grid items-center gap-4 p-4 sm:gap-5 sm:p-5 md:grid-cols-[0.2fr_1fr_auto_auto]">
             <div className="relative hidden h-20 overflow-hidden rounded-[10px] md:block">
               <Image src="/assets/voice-waveform-hero.png" alt="" fill sizes="220px" className="object-cover" />
