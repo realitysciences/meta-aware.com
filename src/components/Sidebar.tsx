@@ -52,8 +52,13 @@ const lowerNavItems = [
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
-const sourceItems = [
-  { label: 'Voice Sessions', href: '/map-sources/voice-sessions', activePath: '/voice-session' },
+const sourceItems: Array<{
+  label: string
+  href: string
+  activeCheck?: (p: string) => boolean
+}> = [
+  { label: 'Voice Sessions', href: '/map-sources/voice-sessions', activeCheck: (p) => p.startsWith('/voice-session') && !p.includes('/text-chat') },
+  { label: 'Text Chat Sessions', href: '/map-sources/text-chat-sessions', activeCheck: (p) => p.includes('/text-chat') },
   { label: 'Artifacts', href: '/map-sources/artifacts' },
   { label: 'Lens Scans', href: '/map-sources/lens-scans' },
   { label: 'Journals', href: '/map-sources/journals' },
@@ -131,7 +136,7 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
           </div>
           <div className="ml-[9px] mt-2 space-y-2 border-l border-[#d8c4a7] pl-6">
             {sourceItems.map((item) => {
-              const active = pathname.startsWith(item.activePath ?? item.href)
+              const active = item.activeCheck ? item.activeCheck(pathname) : pathname.startsWith(item.href)
               return (
                 <Link key={item.label} href={item.href} className={`flex items-center gap-2 text-xs font-semibold transition ${active ? 'text-[#c97c1e]' : 'text-[#314164] hover:text-[#a45f0d]'}`}>
                   <span className={`h-2 w-2 rounded-full ${active ? 'bg-[#c97c1e]' : 'bg-[#cfc0a8]'}`} />
