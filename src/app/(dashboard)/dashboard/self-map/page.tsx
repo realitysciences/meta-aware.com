@@ -152,7 +152,8 @@ export default function SelfMapPage() {
             })}
           </div>
 
-          <div className="grid items-start gap-4 xl:grid-cols-[0.94fr_1.06fr]">
+          <div className="grid gap-4 xl:grid-cols-[0.94fr_1.06fr]">
+            <div className="space-y-4">
             <Card className="self-start p-4 xl:p-5">
               <div className="grid items-center gap-2 lg:grid-cols-[142px_minmax(0,1fr)] xl:grid-cols-[158px_minmax(0,1fr)]">
                 <div className="relative z-10">
@@ -189,6 +190,41 @@ export default function SelfMapPage() {
                 </div>
               </div>
             </Card>
+
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <h2 className="font-serif text-2xl">How This Domain Connects <span className="align-middle text-sm">ⓘ</span></h2>
+                <ButtonLink href="/self-map?view=connection-map">View Connection Map <ArrowRight className="h-4 w-4" /></ButtonLink>
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-6">
+                {connections.map(([label, icon], index) => (
+                  <div key={label} className="relative text-center">
+                    <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#f3eefb]">
+                      <Image src={`${assetBase}/domains/${icon}`} alt="" width={34} height={34} className="h-8 w-8" />
+                    </div>
+                    <p className="mt-2 text-[11px] font-black">{label}</p>
+                    {index < connections.length - 1 && <ArrowRight className="absolute -right-3 top-5 hidden h-4 w-4 text-[#173563] lg:block" />}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-xs font-semibold text-[#173563]">This thread suggests that safety, approval, and explanation are currently linked across multiple domains.</p>
+            </Card>
+
+            <Card className="p-4">
+              <h2 className="font-serif text-2xl">Map Insights at a Glance</h2>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {insights.map(([icon, title, note]) => (
+                  <div key={title} className="flex gap-3 border-r border-[#ead7b9] pr-3 last:border-r-0">
+                    <Image src={`${assetBase}/icons/${icon}`} alt="" width={38} height={38} className="h-10 w-10" />
+                    <p className="text-xs font-black leading-5">{title} {note && <span className="text-[#0f8a77]">{note}</span>}</p>
+                  </div>
+                ))}
+              </div>
+              <Link href="/insights" className="mt-3 inline-flex items-center gap-1 text-sm font-black text-[#176dff]">View all insights <ArrowRight className="h-4 w-4" /></Link>
+            </Card>
+            </div>
+
+            <div className="space-y-4">
 
             <Card className="overflow-hidden">
               <div className="relative bg-[#06183a] p-5 pb-20 text-white">
@@ -281,27 +317,6 @@ export default function SelfMapPage() {
                 </div>
               </div>
             </Card>
-          </div>
-
-          <div className="grid gap-4 xl:grid-cols-[0.94fr_1.06fr]">
-            <Card className="p-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-serif text-2xl">How This Domain Connects <span className="align-middle text-sm">ⓘ</span></h2>
-                <ButtonLink href="/self-map?view=connection-map">View Connection Map <ArrowRight className="h-4 w-4" /></ButtonLink>
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-3 lg:grid-cols-6">
-                {connections.map(([label, icon], index) => (
-                  <div key={label} className="relative text-center">
-                    <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#f3eefb]">
-                      <Image src={`${assetBase}/domains/${icon}`} alt="" width={34} height={34} className="h-8 w-8" />
-                    </div>
-                    <p className="mt-2 text-[11px] font-black">{label}</p>
-                    {index < connections.length - 1 && <ArrowRight className="absolute -right-3 top-5 hidden h-4 w-4 text-[#173563] lg:block" />}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4 text-xs font-semibold text-[#173563]">This thread suggests that safety, approval, and explanation are currently linked across multiple domains.</p>
-            </Card>
 
             <Card className="p-4">
               <div className="flex items-center justify-between">
@@ -317,22 +332,8 @@ export default function SelfMapPage() {
                 ))}
               </div>
             </Card>
-          </div>
 
-          <div className="grid gap-4 xl:grid-cols-[0.98fr_0.54fr_0.64fr]">
-            <Card className="p-4">
-              <h2 className="font-serif text-2xl">Map Insights at a Glance</h2>
-              <div className="mt-4 grid gap-3 md:grid-cols-3">
-                {insights.map(([icon, title, note]) => (
-                  <div key={title} className="flex gap-3 border-r border-[#ead7b9] pr-3 last:border-r-0">
-                    <Image src={`${assetBase}/icons/${icon}`} alt="" width={38} height={38} className="h-10 w-10" />
-                    <p className="text-xs font-black leading-5">{title} {note && <span className="text-[#0f8a77]">{note}</span>}</p>
-                  </div>
-                ))}
-              </div>
-              <Link href="/insights" className="mt-3 inline-flex items-center gap-1 text-sm font-black text-[#176dff]">View all insights <ArrowRight className="h-4 w-4" /></Link>
-            </Card>
-
+            <div className="grid gap-4 lg:grid-cols-[0.92fr_1.08fr]">
             <Card className="p-4">
               <h2 className="font-serif text-2xl">Needs More Resolution</h2>
               <p className="mt-2 text-xs font-semibold text-[#173563]">These domains would benefit from more reflections, intake, or lens scans.</p>
@@ -359,6 +360,8 @@ export default function SelfMapPage() {
                 ))}
               </div>
             </Card>
+            </div>
+            </div>
           </div>
         </div>
       )}
