@@ -186,6 +186,14 @@ export default function HomePage() {
                 <span className="block text-xs font-semibold text-[#06183a]">End-to-end encrypted. Your data is never shared.</span>
               </span>
             </p>
+
+            <div className="mt-6 rounded-[13px] border border-[#d7c6ae] bg-white/70 p-4 sm:mt-8">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#a45f0d]">Sample reflection · after session 1</p>
+              <p className="mt-3 text-sm italic leading-7 text-[#06183a]">
+                &ldquo;There is a pattern worth noticing: the way you describe your mother&apos;s emotional distance and the way you describe your last relationship share the same architecture. Both involve reaching, then withdrawing, then concluding you were the problem.&rdquo;
+              </p>
+              <p className="mt-3 text-[11px] font-bold text-[#44506b]">Domains activated: Family System &middot; Attachment Pattern &middot; Self-Worth</p>
+            </div>
           </div>
 
           <section className="overflow-hidden rounded-[18px] border border-[#0b2351] bg-[#06183a] p-5 text-white shadow-[0_10px_34px_rgba(42,25,7,0.045)] sm:p-6 md:p-7">
