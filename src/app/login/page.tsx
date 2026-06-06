@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     try {
       const provider = new GoogleAuthProvider()
-      const credential = await signInWithPopup(getFirebaseAuth(), provider)
+      const credential = await signInWithPopup(await getFirebaseAuth(), provider)
       await finishFirebaseLogin(await credential.user.getIdToken())
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Google sign-in failed.')

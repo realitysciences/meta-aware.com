@@ -5,7 +5,7 @@ Meta-Aware is a Next.js app using Firebase for authentication, server sessions, 
 ## Local Setup
 
 1. Copy `.env.example` to `.env.local`.
-2. Add Firebase browser config from Firebase project settings.
+2. Add Firebase browser config from Firebase project settings. Prefer the `NEXT_PUBLIC_FIREBASE_*` names in `.env.example`; the app also has a runtime `/api/firebase-config` fallback for equivalent non-public server env names.
 3. Add Firebase Admin service-account values for server session verification.
 4. Run the app:
 

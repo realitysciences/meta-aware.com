@@ -65,7 +65,7 @@ export default function Sidebar({ fullName, email, plan }: SidebarProps) {
   }, [pathname])
 
   async function handleSignOut() {
-    await signOut(getFirebaseAuth()).catch(() => null)
+    await getFirebaseAuth().then((auth) => signOut(auth)).catch(() => null)
     await fetch('/api/auth/session', { method: 'DELETE' })
     router.push('/login')
     router.refresh()
