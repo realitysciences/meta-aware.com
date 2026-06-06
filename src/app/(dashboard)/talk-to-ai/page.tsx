@@ -4,11 +4,9 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
-  BookOpen,
   BarChart2,
   Check,
   CircleHelp,
-  Clock,
   FileText,
   Layers3,
   Map,
@@ -400,9 +398,9 @@ export default function RealityScientistAIPage() {
           </Card>
         ) : (
           /* Text chat panel */
-          <Card className="mb-4 flex flex-col overflow-hidden" style={{ minHeight: '520px' }}>
+          <Card className="mb-4 flex min-h-[520px] flex-col overflow-hidden">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-4" style={{ maxHeight: '420px' }}>
+            <div className="flex-1 overflow-y-auto p-5 space-y-4 max-h-[420px]">
               {chatMessages.map((msg, i) => (
                 <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   {msg.role === 'ai' && (

@@ -13,7 +13,6 @@ import {
   FileText,
   Heart,
   Link2,
-  Map,
   Mic,
   Pause,
   Play,
@@ -22,7 +21,6 @@ import {
   Sparkles,
   Square,
   Star,
-  Users,
 } from 'lucide-react'
 
 // ─── Session data ─────────────────────────────────────────────────────────────
@@ -188,7 +186,6 @@ export default function MotherFunctionSessionPage() {
           <div className="flex min-w-max items-start gap-1">
             {steps.map((step, idx) => {
               const isCurrentStep = step.number === 1
-              const isDone = false
               return (
                 <div key={step.number} className="flex items-start">
                   <div className={`flex min-w-[100px] flex-col items-start gap-1 rounded-[10px] px-3 py-2 ${isCurrentStep ? 'bg-[#fff2df]' : ''}`}>
