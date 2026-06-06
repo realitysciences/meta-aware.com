@@ -248,7 +248,7 @@ export default function DashboardPage() {
           <Card className="p-5">
             <h2 className="font-serif text-2xl">Your Whole-Person Atlas</h2>
             <div className="mt-4 grid grid-cols-[110px_1fr] gap-4">
-              <Image src="/assets/dashboard/atlas-book.png" alt="The Whole-Person Atlas book" width={289} height={328} className="h-40 w-auto object-contain drop-shadow-xl" />
+              <Image src="/assets/whole-person-atlas-book-transparent.png" alt="The Whole-Person Atlas book" width={1122} height={1402} className="h-40 w-auto object-contain drop-shadow-xl" />
               <div className="space-y-2">
                 {atlasStats.map((stat) => (
                   <p key={stat} className="flex items-center gap-2 border-b border-[#ead7b9] pb-2 text-sm font-semibold text-[#344263]"><CheckCircle2 className="h-4 w-4 text-[#234bb5]" />{stat}</p>
