@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight,
   BookOpen,
@@ -147,10 +147,37 @@ export default function RealityScientistAIPage() {
     else if (m === 'voice') setMode('voice')
   }, [])
 
+  type ChatMessage = { role: 'user' | 'ai'; text: string }
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    { role: 'ai', text: "I'm here. Ask about a decision, relationship, pattern, or anything your map is showing you." },
+  ])
+  const [textInput, setTextInput] = useState('')
+  const chatBottomRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [chatMessages])
+
+  function sendChat() {
+    const text = textInput.trim()
+    if (!text) return
+    setChatMessages((prev) => [...prev, { role: 'user', text }])
+    setTextInput('')
+    setTimeout(() => {
+      setChatMessages((prev) => [
+        ...prev,
+        { role: 'ai', text: "That's a meaningful thread. What's underneath that for you — is it more about fear, loyalty, or something you haven't quite named yet?" },
+      ])
+    }, 1100)
+  }
+
+  function handleChatKey(e: React.KeyboardEvent) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat() }
+  }
+
   const [context, setContext] = useState('whole-map')
   const [purpose, setPurpose] = useState('reflect')
   const [voiceActive, setVoiceActive] = useState(false)
-  const [textInput, setTextInput] = useState('')
 
   const selectedContext = contextOptions.find((c) => c.id === context)
 
@@ -373,22 +400,52 @@ export default function RealityScientistAIPage() {
           </Card>
         ) : (
           /* Text chat panel */
-          <Card className="mb-4 p-4">
-            <div className="rounded-[10px] border border-[#ead7b9] bg-[#faf6f0] p-3 text-sm font-semibold text-[#6b7280]">
-              <p className="text-[11px] font-black uppercase tracking-wider text-[#6c37c6]">Reality Scientist AI</p>
-              <p className="mt-1">I&apos;m here. Ask about a decision, relationship, pattern, or anything your map is showing you.</p>
+          <Card className="mb-4 flex flex-col overflow-hidden" style={{ minHeight: '520px' }}>
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-5 space-y-4" style={{ maxHeight: '420px' }}>
+              {chatMessages.map((msg, i) => (
+                <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
+                  {msg.role === 'ai' && (
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#d9c4ff] bg-[#f5f0ff]">
+                      <MessageSquare className="h-4 w-4 text-[#6c37c6]" />
+                    </div>
+                  )}
+                  <div className={`max-w-[78%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                    {msg.role === 'ai' && <p className="text-[11px] font-black text-[#6c37c6]">Reality Scientist AI</p>}
+                    <div className={`rounded-[12px] px-4 py-2.5 text-sm font-semibold leading-6 ${
+                      msg.role === 'ai'
+                        ? 'border border-[#ead7b9] bg-white text-[#06183a]'
+                        : 'bg-[#06183a] text-white'
+                    }`}>
+                      {msg.text}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div ref={chatBottomRef} />
             </div>
-            <div className="mt-3 flex gap-2">
-              <textarea
-                value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
-                rows={3}
-                placeholder="Ask about a decision, relationship, pattern, emotion, or next step..."
-                className="flex-1 resize-none rounded-[10px] border border-[#ead7b9] bg-white px-3 py-2 text-sm font-semibold text-[#06183a] outline-none placeholder:text-[#a0a8b8] focus:border-[#d9a461]"
-              />
-              <button className="self-end flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#06183a] text-white hover:bg-[#0d2a5e] transition-colors" aria-label="Send">
-                <Send className="h-4 w-4" />
-              </button>
+
+            {/* Input */}
+            <div className="border-t border-[#ead7b9] p-4">
+              <div className="flex items-end gap-2">
+                <textarea
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  onKeyDown={handleChatKey}
+                  rows={2}
+                  placeholder="Ask about a decision, relationship, pattern, emotion, or next step..."
+                  className="flex-1 resize-none rounded-[10px] border border-[#ead7b9] bg-white px-3 py-2.5 text-sm font-semibold text-[#06183a] outline-none placeholder:text-[#a0a8b8] focus:border-[#d9a461]"
+                />
+                <button
+                  onClick={sendChat}
+                  disabled={!textInput.trim()}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[#06183a] text-white hover:bg-[#0d2a5e] disabled:opacity-40 transition-colors"
+                  aria-label="Send"
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+              <p className="mt-2 text-[11px] font-semibold text-[#a0a8b8]">Press Enter to send</p>
             </div>
           </Card>
         )}
