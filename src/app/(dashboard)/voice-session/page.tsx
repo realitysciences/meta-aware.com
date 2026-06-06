@@ -295,33 +295,17 @@ export default function VoiceSessionPage() {
               <p className="text-center text-[11px] font-semibold text-[#6b7280]">Last session: Apr 28</p>
             </div>
 
-            <Card className="mt-4 grid gap-4 border-[#cbd8ff] bg-[#f7f9ff] p-4 shadow-none lg:grid-cols-[0.68fr_1.32fr] lg:items-center">
-              <div>
-                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#176dff]">
-                  <MessageSquare className="h-4 w-4" />
-                  Prefer typing?
-                </p>
-                <h3 className="mt-2 font-serif text-2xl">Use Guided Intake Chat</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-[#344263]">
-                  Tell Meta-Aware by text instead of voice. The AI asks structured intake questions and turns your answers into source material for your map.
-                </p>
-              </div>
-              <div className="rounded-xl border border-[#d8e1ff] bg-white p-3">
-                <div className="rounded-lg bg-[#eef3ff] p-3 text-xs font-semibold leading-5 text-[#173563]">
-                  <strong className="block text-[#06183a]">Meta-Aware intake prompt</strong>
-                  What do you remember most about your mother&apos;s emotional availability?
-                </div>
-                <textarea
-                  className="mt-3 min-h-[86px] w-full rounded-lg border border-[#d8e1ff] bg-white px-3 py-2 text-sm font-semibold outline-none placeholder:text-[#8d96aa] focus:border-[#176dff]"
-                  placeholder="Type your answer here to build this part of your map..."
-                />
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-[11px] font-semibold text-[#6b7280]">This is a Mapping Session intake, not general AI chat.</p>
-                  <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="inline-flex items-center gap-2 rounded-lg bg-[#176dff] px-4 py-2.5 text-xs font-black text-white">
-                    Start Guided Intake Chat <ArrowRight className="h-4 w-4" />
-                  </Link>
+            <Card className="mt-4 flex flex-wrap items-center justify-between gap-4 border-[#cbd8ff] bg-[#f7f9ff] px-4 py-3 shadow-none">
+              <div className="flex items-center gap-3">
+                <MessageSquare className="h-5 w-5 shrink-0 text-[#176dff]" />
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-[#176dff]">Prefer typing?</p>
+                  <p className="text-sm font-semibold text-[#344263]">Use Guided Intake Chat — the AI asks structured questions and turns your answers into map material.</p>
                 </div>
               </div>
+              <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#176dff] px-4 py-2.5 text-xs font-black text-white">
+                Start Guided Intake Chat <ArrowRight className="h-4 w-4" />
+              </Link>
             </Card>
           </Card>
 
