@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getFirebaseAdminAuth, getFirebaseAdminDb } from '@/lib/firebase/admin'
+import { getFirebaseAdminAuth, getFirebaseAdminDb, getMissingFirebaseAdminConfig } from '@/lib/firebase/admin'
 import { FIREBASE_SESSION_COOKIE } from '@/lib/firebase/session'
 
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 5
+
+export async function GET() {
+  const missing = getMissingFirebaseAdminConfig()
+
+  return NextResponse.json({
+    firebaseAdminConfigured: missing.length === 0,
+    missing,
+  })
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,7 +46,14 @@ export async function POST(request: NextRequest) {
     return response
   } catch (error) {
     console.error('Firebase session error:', error)
-    return NextResponse.json({ error: 'Could not create session' }, { status: 401 })
+    const message = error instanceof Error ? error.message : 'Unknown Firebase session error'
+    const missing = getMissingFirebaseAdminConfig()
+    return NextResponse.json({
+      error: 'Could not create session',
+      code: missing.length ? 'firebase-admin-config-missing' : 'firebase-admin-session-failed',
+      missing,
+      message: missing.length ? 'Firebase Admin environment variables are missing.' : message,
+    }, { status: 401 })
   }
 }
 

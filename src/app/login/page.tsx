@@ -20,7 +20,11 @@ export default function LoginPage() {
     })
 
     if (!response.ok) {
-      throw new Error('Could not create your session.')
+      const details = await response.json().catch(() => null)
+      const missing = Array.isArray(details?.missing) && details.missing.length
+        ? ` Missing: ${details.missing.join(', ')}.`
+        : ''
+      throw new Error(`${details?.message || 'Could not create your session.'}${missing}`)
     }
 
     router.push('/dashboard')
