@@ -21,7 +21,9 @@ async function loadFirebaseConfig() {
 
   const response = await fetch('/api/firebase-config')
   if (!response.ok) {
-    throw new Error('Firebase client env vars are missing.')
+    const details = await response.json().catch(() => null)
+    const missing = Array.isArray(details?.missing) ? ` Missing: ${details.missing.join(', ')}.` : ''
+    throw new Error(`Firebase client env vars are missing.${missing}`)
   }
 
   return response.json()
