@@ -263,16 +263,16 @@ export default function HomePage() {
         </CardShell>
 
         <section id="why-different" className="mt-4 grid gap-4 md:grid-cols-[0.36fr_0.64fr]">
-          <CardShell className="bg-[#06183a] p-5 text-white sm:p-7">
+          <section className="rounded-[18px] border border-[#0b2351] bg-[#06183a] p-5 text-white shadow-[0_10px_34px_rgba(42,25,7,0.045)] sm:p-7">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f0a638]">Why Meta-Aware is different</p>
-            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">It does not just summarize your story. It maps how experience moves through you.</h2>
-            <p className="mt-5 text-base font-semibold leading-7 text-white/82">
+            <h2 className="mt-4 font-serif text-3xl leading-tight text-white sm:text-4xl">It does not just summarize your story. It maps how experience moves through you.</h2>
+            <p className="mt-5 text-base font-semibold leading-7 text-white/80">
               Visible symptoms are not the whole map. Anxiety, overexplaining, avoidance, anger, people-pleasing, and stuckness are often the surface of a deeper routing pattern.
             </p>
-            <p className="mt-4 rounded-[14px] border border-white/20 bg-white/8 p-4 text-lg font-black leading-7 text-[#f1bc39]">
+            <p className="mt-4 rounded-[14px] border border-white/20 bg-white/10 p-4 text-lg font-black leading-7 text-[#f1bc39]">
               This is not who you are. This is how your system learned to route experience.
             </p>
-          </CardShell>
+          </section>
 
           <div className="grid gap-4 lg:grid-cols-3">
             {differenceItems.map((item) => (
