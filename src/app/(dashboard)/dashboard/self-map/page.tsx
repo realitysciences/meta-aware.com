@@ -152,8 +152,8 @@ export default function SelfMapPage() {
             })}
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-[0.94fr_1.06fr]">
-            <Card className="p-4 xl:p-5">
+          <div className="grid items-start gap-4 xl:grid-cols-[0.94fr_1.06fr]">
+            <Card className="self-start p-4 xl:p-5">
               <div className="grid items-center gap-2 lg:grid-cols-[142px_minmax(0,1fr)] xl:grid-cols-[158px_minmax(0,1fr)]">
                 <div className="relative z-10">
                   <h2 className="font-serif text-2xl">Your 24-Domain Atlas <span className="align-middle text-sm">ⓘ</span></h2>
