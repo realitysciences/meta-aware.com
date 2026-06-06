@@ -39,7 +39,7 @@ const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: Home },
   { label: 'Speak / Voice Session', href: '/voice-session', icon: Mic },
   { label: 'Talk to AI', href: '/talk-to-ai', icon: MessageSquare },
-  { label: 'My Self-Map (24 Domains)', href: '/self-map', icon: Map },
+  { label: 'My Self-Map (24 Domains)', href: '/dashboard/self-map', icon: Map },
 ]
 
 const lowerNavItems = [

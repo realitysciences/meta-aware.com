@@ -145,7 +145,7 @@ export default function DashboardPage() {
                   <ButtonLink href="/voice-session"><Mic className="h-5 w-5" />Continue Voice Session</ButtonLink>
                   <ButtonLink href="/talk-to-ai" variant="outline"><MessageSquare className="h-5 w-5" />Ask Reality Scientist AI</ButtonLink>
                 </div>
-                <Link href="/self-map" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ffd17a] underline decoration-[#ffd17a]/40 underline-offset-4">View Progress <ArrowRight className="h-4 w-4" /></Link>
+                <Link href="/dashboard/self-map" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ffd17a] underline decoration-[#ffd17a]/40 underline-offset-4">View Progress <ArrowRight className="h-4 w-4" /></Link>
               </div>
             </div>
           </section>
@@ -235,7 +235,7 @@ export default function DashboardPage() {
           <Card className="p-5">
             <div className="mb-2 flex items-center justify-between">
               <h2 className="font-serif text-2xl">Your 24-Domain Map</h2>
-              <Link href="/self-map" className="inline-flex items-center gap-1 text-sm font-bold text-[#174fbe]">View Full Map <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/dashboard/self-map" className="inline-flex items-center gap-1 text-sm font-bold text-[#174fbe]">View Full Map <ArrowRight className="h-4 w-4" /></Link>
             </div>
             <Image src="/assets/dashboard/domain-radial-map.png" alt="24-domain radial map showing 18 domains explored" width={336} height={335} className="mx-auto w-full max-w-[310px] object-contain" />
             <div className="mt-2 flex flex-wrap justify-center gap-4 text-xs font-semibold text-[#344263]">
