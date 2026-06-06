@@ -158,18 +158,21 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 rounded-xl border border-[#ead7b9] bg-white/72 p-3">
-          {photoURL ? (
-            <Image src={photoURL} alt={displayName} width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover" />
-          ) : (
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2c78c] to-[#8a4b25] font-serif text-lg font-bold text-white">{initials}</div>
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="truncate font-serif text-lg leading-tight text-[#06183a]">{displayName}</p>
-            <p className="text-xs font-semibold text-[#4c3a87]">{plan === 'pro' ? 'Premium Member' : 'Member'}</p>
+        <div className="rounded-xl border border-[#ead7b9] bg-white/72 p-3">
+          <div className="flex items-center gap-3">
+            {photoURL ? (
+              <Image src={photoURL} alt={displayName} width={44} height={44} className="h-11 w-11 shrink-0 rounded-full object-cover" />
+            ) : (
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#f2c78c] to-[#8a4b25] font-serif text-lg font-bold text-white">{initials}</div>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="truncate font-serif text-lg leading-tight text-[#06183a]">{displayName}</p>
+              <p className="truncate text-xs font-semibold text-[#4c3a87]">{plan === 'pro' ? 'Premium Member' : 'Member'} · Google account</p>
+            </div>
           </div>
-          <button onClick={handleSignOut} className="rounded-full p-2 text-[#314164] hover:bg-[#f4eadb]" aria-label="Sign out">
+          <button onClick={handleSignOut} className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#d3b98f] bg-white/80 px-3 py-2 text-xs font-black text-[#06183a] hover:bg-[#fff2df]">
             <LogOut className="h-4 w-4" />
+            Sign out
           </button>
         </div>
       </div>
