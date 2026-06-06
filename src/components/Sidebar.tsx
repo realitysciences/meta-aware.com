@@ -57,7 +57,7 @@ const sourceItems: Array<{
   href: string
   activeCheck?: (p: string) => boolean
 }> = [
-  { label: 'Voice Sessions', href: '/map-sources/voice-sessions', activeCheck: (p) => p.startsWith('/voice-session') && !p.includes('/text-chat') },
+  { label: 'Voice Sessions', href: '/map-sources/voice-sessions', activeCheck: (p) => p.startsWith('/map-sources/voice-sessions') || (p.startsWith('/voice-session') && !p.includes('/text-chat')) },
   { label: 'Text Chat Sessions', href: '/map-sources/text-chat-sessions', activeCheck: (p) => p.includes('/text-chat') },
   { label: 'Artifacts', href: '/map-sources/artifacts' },
   { label: 'Lens Scans', href: '/map-sources/lens-scans' },
