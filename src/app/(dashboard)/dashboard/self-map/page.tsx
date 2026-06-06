@@ -58,6 +58,98 @@ const actions = [
   ['Add a Reflection', 'Capture what you’re seeing and feeling', 'action-add-reflection.svg', '/reflections/new'],
 ]
 
+const categoryMeta = {
+  Foundations: {
+    description: 'The early influences that shape your sense of safety and the world around you.',
+    count: '6 domains',
+    accent: '#0f8a77',
+    bg: '#eefaf4',
+    glyph: '◌',
+  },
+  Relationships: {
+    description: 'The people, roles, and dynamics that shape your relational world.',
+    count: '4 domains',
+    accent: '#145fd7',
+    bg: '#eef5ff',
+    glyph: '⌁',
+  },
+  Identity: {
+    description: 'Your sense of self, values, purpose, and inner world.',
+    count: '4 domains',
+    accent: '#6c37c6',
+    bg: '#f4efff',
+    glyph: '✦',
+  },
+  Body: {
+    description: 'Your physical self, energy, and vitality.',
+    count: '4 domains',
+    accent: '#0d8878',
+    bg: '#effbf8',
+    glyph: '⌾',
+  },
+  Work: {
+    description: 'How you create, contribute, and build your life.',
+    count: '4 domains',
+    accent: '#ef4e22',
+    bg: '#fff2ec',
+    glyph: '□',
+  },
+  Meaning: {
+    description: 'Your deeper sense of meaning, faith, and legacy.',
+    count: '2 domains',
+    accent: '#d88920',
+    bg: '#fff7e8',
+    glyph: '∞',
+  },
+} as const
+
+type DomainCategory = keyof typeof categoryMeta
+type DomainState = 'Explored' | 'In Progress' | 'Needs More Source Material' | 'Current Focus'
+
+const domainGridData: Array<{
+  number: number
+  name: string
+  category: DomainCategory
+  progress: number
+  reflections: number
+  connections: number
+  status: string
+  next: string
+  state: DomainState
+}> = [
+  { number: 1, name: 'Safety & Security', category: 'Foundations', progress: 80, reflections: 5, connections: 3, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Explored' },
+  { number: 2, name: 'Early Environment', category: 'Foundations', progress: 70, reflections: 4, connections: 3, status: 'Active mapping underway', next: 'Next unlock: Domain Report', state: 'In Progress' },
+  { number: 3, name: 'Mother Imprint', category: 'Foundations', progress: 65, reflections: 5, connections: 4, status: 'Active mapping underway', next: 'Need: more maternal stories', state: 'Needs More Source Material' },
+  { number: 4, name: 'Father Imprint', category: 'Foundations', progress: 50, reflections: 4, connections: 3, status: 'Active mapping underway', next: 'Need: more paternal stories', state: 'Needs More Source Material' },
+  { number: 5, name: 'Core Beliefs', category: 'Foundations', progress: 70, reflections: 6, connections: 4, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Explored' },
+  { number: 6, name: 'Attachment Styles', category: 'Foundations', progress: 60, reflections: 5, connections: 4, status: 'Active mapping underway', next: 'Need: safe space for depth', state: 'In Progress' },
+  { number: 7, name: 'Partner Dynamics', category: 'Relationships', progress: 60, reflections: 4, connections: 4, status: 'Active mapping underway', next: 'Need: relationship stories', state: 'Needs More Source Material' },
+  { number: 8, name: 'Family System', category: 'Relationships', progress: 62, reflections: 6, connections: 6, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Current Focus' },
+  { number: 9, name: 'Friendship & Community', category: 'Relationships', progress: 70, reflections: 5, connections: 4, status: 'Strong signals mapped', next: 'Need: deeper reflections', state: 'Explored' },
+  { number: 10, name: 'Communication Patterns', category: 'Relationships', progress: 70, reflections: 5, connections: 4, status: 'Active mapping underway', next: 'Need: communication history', state: 'In Progress' },
+  { number: 11, name: 'Self-Worth & Shame', category: 'Identity', progress: 70, reflections: 6, connections: 5, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Explored' },
+  { number: 12, name: 'Values & Integrity', category: 'Identity', progress: 75, reflections: 5, connections: 4, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Explored' },
+  { number: 13, name: 'Purpose & Calling', category: 'Identity', progress: 60, reflections: 4, connections: 3, status: 'Active mapping underway', next: 'Need: life purpose clarity', state: 'In Progress' },
+  { number: 14, name: 'Emotions & Inner World', category: 'Identity', progress: 55, reflections: 6, connections: 4, status: 'Active mapping underway', next: 'Need: emotional safety', state: 'In Progress' },
+  { number: 15, name: 'Body Awareness', category: 'Body', progress: 70, reflections: 5, connections: 3, status: 'Strong signals mapped', next: 'Next unlock: Domain Report', state: 'Explored' },
+  { number: 16, name: 'Health & Habits', category: 'Body', progress: 65, reflections: 4, connections: 3, status: 'Active mapping underway', next: 'Need: habit consistency', state: 'In Progress' },
+  { number: 17, name: 'Energy & Vitality', category: 'Body', progress: 50, reflections: 4, connections: 2, status: 'Needs more source material', next: 'Need: energy patterns', state: 'Needs More Source Material' },
+  { number: 18, name: 'Sexuality & Intimacy', category: 'Body', progress: 30, reflections: 2, connections: 2, status: 'Needs more source material', next: 'Need: safe space for depth', state: 'Needs More Source Material' },
+  { number: 19, name: 'Work & Career Path', category: 'Work', progress: 60, reflections: 5, connections: 4, status: 'Active mapping underway', next: 'Need: career clarity', state: 'In Progress' },
+  { number: 20, name: 'Money & Abundance', category: 'Work', progress: 50, reflections: 3, connections: 3, status: 'Active mapping underway', next: 'Need: money story work', state: 'In Progress' },
+  { number: 21, name: 'Creativity & Expression', category: 'Work', progress: 55, reflections: 4, connections: 3, status: 'Needs more source material', next: 'Need: creative outlet', state: 'Needs More Source Material' },
+  { number: 22, name: 'Contribution & Impact', category: 'Work', progress: 60, reflections: 5, connections: 4, status: 'Active mapping underway', next: 'Need: impact clarity', state: 'In Progress' },
+  { number: 23, name: 'Spirituality & Faith', category: 'Meaning', progress: 65, reflections: 4, connections: 3, status: 'Active mapping underway', next: 'Need: spiritual practices', state: 'In Progress' },
+  { number: 24, name: 'Legacy & Life Themes', category: 'Meaning', progress: 40, reflections: 2, connections: 2, status: 'Needs more source material', next: 'Need: life story integration', state: 'Needs More Source Material' },
+]
+
+const statusLegend = [
+  ['Strong Signals Mapped', 'Rich insights and clear connections.', '#0f8a77'],
+  ['Active Mapping Underway', 'More clarity emerging.', '#145fd7'],
+  ['Needs More Source Material', 'More reflections, intake, or lens scans would help.', '#ff6b18'],
+  ['Not Started', 'Not enough data yet to begin meaningful mapping.', '#9c9c9c'],
+]
+
 function Card({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <section className={`rounded-[14px] border border-[#ead7b9] bg-white/74 shadow-[0_12px_30px_rgba(48,27,5,0.04)] ${className}`}>
@@ -90,8 +182,211 @@ function PlaceholderTab({ title }: { title: string }) {
   )
 }
 
+function SummaryCards() {
+  return (
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {statusCards.map((card, index) => {
+        const Icon = card.icon
+        return (
+          <Card key={card.title} className="p-5">
+            <div className="flex items-center gap-5">
+              {index === 0 ? (
+                <div className="grid h-[82px] w-[82px] shrink-0 place-items-center rounded-full" style={{ background: 'conic-gradient(#0f8a77 75%, #ded8cf 0)' }}>
+                  <div className="grid h-[64px] w-[64px] place-items-center rounded-full bg-white text-xl font-black">75%</div>
+                </div>
+              ) : (
+                <div className="flex h-[82px] w-[82px] shrink-0 items-center justify-center rounded-full bg-[#fff5e8]" style={{ color: card.accent }}>
+                  <Icon className="h-9 w-9" />
+                </div>
+              )}
+              <div>
+                <p className="text-xs font-black text-[#173563]">{card.title}</p>
+                <p className="font-serif text-[1.7rem] leading-tight">{card.value}</p>
+                <p className="text-xs font-semibold text-[#173563]">{card.detail}</p>
+                {card.title === 'Active Focus' && <span className="mt-2 inline-flex rounded-full bg-[#fff0d6] px-3 py-1 text-[11px] font-black text-[#a85e00]">Current Focus</span>}
+              </div>
+            </div>
+          </Card>
+        )
+      })}
+    </div>
+  )
+}
+
+function slugForDomain(name: string) {
+  return name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
+
+function DomainCard({ domain }: { domain: (typeof domainGridData)[number] }) {
+  const category = categoryMeta[domain.category]
+  const isFocus = domain.state === 'Current Focus'
+  const stateColor = domain.state === 'Explored' || domain.state === 'Current Focus' ? '#0f8a77' : domain.state === 'In Progress' ? '#145fd7' : '#ff6b18'
+
+  return (
+    <Link
+      href={`/self-map/${slugForDomain(domain.name)}`}
+      className={`group relative rounded-xl border bg-white/82 p-4 shadow-[0_10px_22px_rgba(48,27,5,0.035)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_34px_rgba(48,27,5,0.08)] ${
+        isFocus ? 'border-[#eda942] bg-[#fff7e8] ring-2 ring-[#eda942]/35' : 'border-[#ead7b9]'
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <span className="grid h-7 w-7 place-items-center rounded-full bg-[#f3f5fb] text-xs font-black text-[#06183a]">{domain.number}</span>
+        <span className="grid h-12 w-12 place-items-center rounded-full text-2xl font-black" style={{ color: category.accent, backgroundColor: category.bg }}>
+          {category.glyph}
+        </span>
+        {isFocus && <span className="rounded-full bg-[#ffe0a8] px-3 py-1 text-[10px] font-black text-[#8a4f00]">Current Focus</span>}
+      </div>
+      <h3 className="mt-3 min-h-[38px] text-center text-sm font-black leading-5 text-[#06183a]">{domain.name}</h3>
+      <div className="mt-2 flex items-center justify-center gap-2">
+        <strong className="text-sm">{domain.progress}%</strong>
+        <span className="grid h-6 w-6 place-items-center rounded-full" style={{ background: `conic-gradient(${category.accent} ${domain.progress}%, #e7e0d6 0)` }}>
+          <i className="h-4 w-4 rounded-full bg-white" />
+        </span>
+      </div>
+      <p className="mt-3 text-center text-[11px] font-semibold text-[#344263]">{domain.reflections} reflections · {domain.connections} connections</p>
+      <p className="mt-2 flex items-center justify-center gap-2 text-center text-[11px] font-black" style={{ color: stateColor }}>
+        <i className="h-2 w-2 rounded-full" style={{ backgroundColor: stateColor }} />
+        {domain.status}
+      </p>
+      <p className="mt-2 text-center text-[11px] font-black text-[#bc3b12]">{domain.next}</p>
+    </Link>
+  )
+}
+
+function DomainGridView({ onReturnToAtlas }: { onReturnToAtlas: () => void }) {
+  const [activeCategory, setActiveCategory] = useState<'All Domains' | DomainCategory>('All Domains')
+  const [query, setQuery] = useState('')
+
+  const visibleDomains = domainGridData.filter((domain) => {
+    const matchesCategory = activeCategory === 'All Domains' || domain.category === activeCategory
+    const matchesSearch = domain.name.toLowerCase().includes(query.toLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
+  const categoryOrder = Object.keys(categoryMeta) as DomainCategory[]
+  const groups = categoryOrder
+    .map((category) => ({ category, domains: visibleDomains.filter((domain) => domain.category === category) }))
+    .filter((group) => group.domains.length > 0)
+
+  return (
+    <div className="space-y-4">
+      <SummaryCards />
+
+      <div className="grid gap-3 xl:grid-cols-[1fr_410px]">
+        <Card className="p-4">
+          <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="mr-1 text-sm font-black">View by Category</span>
+              {(['All Domains', ...categoryOrder] as Array<'All Domains' | DomainCategory>).map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`rounded-lg border px-4 py-2 text-xs font-black transition ${
+                    activeCategory === category ? 'border-[#06183a] bg-[#06183a] text-white' : 'border-[#e2d4bd] bg-white/80 text-[#06183a] hover:bg-[#fff2df]'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <label className="flex min-w-[230px] items-center rounded-lg border border-[#e2d4bd] bg-white px-3 py-2 text-sm">
+                <span className="mr-2 text-lg">⌕</span>
+                <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search domains..." className="w-full bg-transparent outline-none placeholder:text-[#6b7280]" />
+              </label>
+              <button className="rounded-lg border border-[#e2d4bd] bg-white px-4 py-2 text-xs font-black">Filter by status</button>
+              <button className="rounded-lg border border-[#e2d4bd] bg-white px-4 py-2 text-xs font-black">Sort by Domain Number</button>
+              <div className="flex overflow-hidden rounded-lg border border-[#e2d4bd] bg-white">
+                <button className="bg-[#06183a] px-3 text-white" aria-label="Grid view">▦</button>
+                <button className="px-3 text-[#06183a]" aria-label="List view">☰</button>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div className="grid items-start gap-4 xl:grid-cols-[1fr_300px]">
+        <div className="space-y-3">
+          {groups.map(({ category, domains }) => {
+            const meta = categoryMeta[category]
+            return (
+              <div key={category} className="grid gap-3 lg:grid-cols-[170px_1fr]">
+                <Card className="p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl" style={{ color: meta.accent }}>{meta.glyph}</span>
+                    <h2 className="text-sm font-black uppercase tracking-[0.08em]" style={{ color: meta.accent }}>{category}</h2>
+                  </div>
+                  <p className="mt-3 text-[12px] font-semibold leading-6 text-[#173563]">{meta.description}</p>
+                  <p className="mt-4 text-xs font-black">{meta.count}</p>
+                </Card>
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
+                  {domains.map((domain) => <DomainCard key={domain.number} domain={domain} />)}
+                  {category === 'Meaning' && activeCategory !== 'All Domains' ? null : category === 'Meaning' && (
+                    <Card className="flex min-h-[150px] items-center gap-4 bg-[#f7f0ff] p-5 sm:col-span-2 xl:col-span-3 2xl:col-span-4">
+                      <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white text-3xl text-[#6c37c6]">✧</span>
+                      <p className="text-sm font-black leading-6">
+                        Meaning domains connect the completed map into direction, values, and legacy.
+                        <span className="block font-semibold text-[#173563]">They help turn insight into living purpose.</span>
+                      </p>
+                    </Card>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <aside className="space-y-4 xl:sticky xl:top-4">
+          <Card className="p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.08em]">Status Legend</h2>
+            <div className="mt-4 space-y-4">
+              {statusLegend.map(([label, detail, color]) => (
+                <div key={label} className="flex gap-3">
+                  <i className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: color }} />
+                  <p className="text-xs font-semibold leading-5"><strong className="block">{label}</strong>{detail}</p>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.08em]">How to Use This Grid</h2>
+            <p className="mt-3 text-sm font-semibold leading-6 text-[#173563]">
+              Compare all 24 domains at a glance. Select any domain to explore what it contains, what connects to it, and what still needs more resolution.
+            </p>
+            <button onClick={onReturnToAtlas} className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#176dff]">Return to Atlas View <ArrowRight className="h-4 w-4" /></button>
+          </Card>
+
+          <Card className="p-4">
+            <h2 className="text-sm font-black uppercase tracking-[0.08em]">Quick Actions</h2>
+            <div className="mt-3 space-y-2">
+              {[
+                ['Ask AI about any domain', '/talk-to-ai'],
+                ['Apply a Lens to your intake', '/map-sources/lens-scans'],
+                ['Start a Voice Session', '/voice-session'],
+                ['Add a Reflection', '/reflections/new'],
+              ].map(([label, href]) => (
+                <Link key={label} href={href} className="flex items-center justify-between rounded-lg px-2 py-2 text-sm font-black hover:bg-[#fff2df]">
+                  {label} <ArrowRight className="h-4 w-4" />
+                </Link>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-4">
+            <div className="flex gap-3">
+              <Image src={`${assetBase}/icons/privacy-lock.svg`} alt="" width={28} height={28} className="h-7 w-7" />
+              <p className="text-xs font-semibold leading-5"><strong className="block">Private. Secure. Yours alone.</strong>Your data is end-to-end encrypted.</p>
+            </div>
+          </Card>
+        </aside>
+      </div>
+    </div>
+  )
+}
+
 export default function SelfMapPage() {
-  const [activeTab, setActiveTab] = useState('Atlas View')
+  const [activeTab, setActiveTab] = useState('Domain Grid')
 
   return (
     <div className="min-h-screen bg-[#fffaf2] px-4 py-4 text-[#06183a] lg:px-6">
@@ -122,7 +417,9 @@ export default function SelfMapPage() {
         </button>
       </header>
 
-      {activeTab !== 'Atlas View' ? (
+      {activeTab === 'Domain Grid' ? (
+        <DomainGridView onReturnToAtlas={() => setActiveTab('Atlas View')} />
+      ) : activeTab !== 'Atlas View' ? (
         <PlaceholderTab title={activeTab} />
       ) : (
         <div className="space-y-4">
