@@ -142,7 +142,7 @@ export default function HomePage() {
           </div>
         </header>
 
-        <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-start">
+        <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-stretch">
           <div className="flex flex-col justify-start pb-3 pt-0 sm:min-h-[470px] md:pl-4">
             <p className="mb-3 max-w-[430px] text-sm font-black uppercase tracking-[0.18em] text-[#a45f0d]">
               Private voice reflection. Whole-person mapping.
@@ -186,17 +186,9 @@ export default function HomePage() {
                 <span className="block text-xs font-semibold text-[#06183a]">End-to-end encrypted. Your data is never shared.</span>
               </span>
             </p>
-
-            <div className="mt-6 rounded-[13px] border border-[#d7c6ae] bg-white/70 p-4 sm:mt-8">
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#a45f0d]">Sample reflection · after session 1</p>
-              <p className="mt-3 text-sm italic leading-7 text-[#06183a]">
-                &ldquo;There is a pattern worth noticing: the way you describe your mother&apos;s emotional distance and the way you describe your last relationship share the same architecture. Both involve reaching, then withdrawing, then concluding you were the problem.&rdquo;
-              </p>
-              <p className="mt-3 text-[11px] font-bold text-[#44506b]">Domains activated: Family System &middot; Attachment Pattern &middot; Self-Worth</p>
-            </div>
           </div>
 
-          <section className="overflow-hidden rounded-[18px] border border-[#0b2351] bg-[#06183a] p-5 text-white shadow-[0_10px_34px_rgba(42,25,7,0.045)] sm:p-6 md:p-7">
+          <section className="flex flex-col justify-between overflow-hidden rounded-[18px] border border-[#0b2351] bg-[#06183a] p-5 text-white shadow-[0_10px_34px_rgba(42,25,7,0.045)] sm:p-6 md:p-7">
             <div className="mb-5 text-center font-serif text-2xl leading-tight sm:text-3xl md:mb-6">
               Every time you speak, <span className="text-[#eaa52e]">two things</span> get better.
             </div>
@@ -247,6 +239,14 @@ export default function HomePage() {
             </div>
           </section>
         </section>
+
+        <div className="mt-4 rounded-[13px] border border-[#d7c6ae] bg-white/70 px-5 py-4 sm:mt-5 sm:flex sm:items-center sm:gap-6">
+          <p className="shrink-0 text-[10px] font-black uppercase tracking-widest text-[#a45f0d]">Sample reflection · after session 1</p>
+          <p className="mt-2 text-sm italic leading-7 text-[#06183a] sm:mt-0 sm:border-l sm:border-[#d7c6ae] sm:pl-6">
+            &ldquo;There is a pattern worth noticing: the way you describe your mother&apos;s emotional distance and the way you describe your last relationship share the same architecture. Both involve reaching, then withdrawing, then concluding you were the problem.&rdquo;
+          </p>
+          <p className="mt-2 shrink-0 text-[11px] font-bold text-[#44506b] sm:mt-0 sm:border-l sm:border-[#d7c6ae] sm:pl-6">Domains activated:<br />Family System · Attachment Pattern · Self-Worth</p>
+        </div>
 
         <CardShell className="mt-4 grid gap-0 overflow-hidden p-3 sm:mt-6 sm:p-4 md:grid-cols-5">
           {trustItems.map((item) => (
