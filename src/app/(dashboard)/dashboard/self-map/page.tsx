@@ -152,35 +152,35 @@ export default function SelfMapPage() {
             })}
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-[0.98fr_1.18fr]">
-            <Card className="p-5">
-              <div className="grid gap-4 lg:grid-cols-[210px_1fr]">
-                <div>
+          <div className="grid gap-4 xl:grid-cols-[0.94fr_1.06fr]">
+            <Card className="p-4 xl:p-5">
+              <div className="grid items-center gap-2 lg:grid-cols-[142px_minmax(0,1fr)] xl:grid-cols-[158px_minmax(0,1fr)]">
+                <div className="relative z-10">
                   <h2 className="font-serif text-2xl">Your 24-Domain Atlas <span className="align-middle text-sm">ⓘ</span></h2>
-                  <p className="mt-5 text-sm font-semibold leading-7 text-[#173563]">
+                  <p className="mt-4 text-[12px] font-semibold leading-6 text-[#173563] xl:text-[13px]">
                     Each domain is a vital part of your whole self. Select any domain to see what it contains, what it connects to, and what it still needs.
                   </p>
                   <ButtonLink href="/#how-it-works">How this works</ButtonLink>
                 </div>
-                <div>
-                  <div className="relative mx-auto max-w-[560px]">
+                <div className="min-w-0">
+                  <div className="relative mx-auto -my-6 max-w-[760px] lg:-ml-4 lg:scale-[1.08] xl:-ml-6 xl:scale-[1.13] 2xl:-ml-8 2xl:scale-[1.18]">
                     <Image
                       src={`${assetBase}/map/radial-map-24-domain.svg`}
                       alt="24-domain radial self-map"
-                      width={560}
-                      height={560}
+                      width={820}
+                      height={820}
                       className="w-full drop-shadow-[0_18px_38px_rgba(48,27,5,0.08)]"
                       priority
                     />
                     <button
-                      className="absolute left-[82%] top-[50%] grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full border-[5px] border-[#d88920] bg-[#f3aa32] font-serif text-2xl font-black text-white shadow-[0_0_0_8px_rgba(216,137,32,0.18)]"
+                      className="absolute left-[84%] top-[50%] grid h-14 w-14 -translate-y-1/2 place-items-center rounded-full border-[5px] border-[#d88920] bg-[#f3aa32] font-serif text-2xl font-black text-white shadow-[0_0_0_8px_rgba(216,137,32,0.18)]"
                       aria-label="Family System active domain"
                       title="Family System"
                     >
                       8
                     </button>
                   </div>
-                  <div className="mt-2 flex flex-wrap justify-center gap-5 text-xs font-bold text-[#173563]">
+                  <div className="mt-0 flex flex-wrap justify-center gap-4 text-[12px] font-bold text-[#173563] xl:gap-5">
                     <span className="flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#0f8a77]" />Explored (18)</span>
                     <span className="flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#176dff]" />In Progress (6)</span>
                     <span className="flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#bcbcbc]" />Not Started (0)</span>
@@ -283,7 +283,7 @@ export default function SelfMapPage() {
             </Card>
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-[0.98fr_1.18fr]">
+          <div className="grid gap-4 xl:grid-cols-[0.94fr_1.06fr]">
             <Card className="p-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-serif text-2xl">How This Domain Connects <span className="align-middle text-sm">ⓘ</span></h2>
