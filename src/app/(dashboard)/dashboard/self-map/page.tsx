@@ -192,12 +192,6 @@ export default function SelfMapPage() {
                   aria-label="Family System active domain"
                   title="Family System"
                 />
-                <div className="pointer-events-none absolute grid h-[34%] w-[34%] place-items-center rounded-full bg-[#fffaf2]/88 text-center shadow-[0_12px_28px_rgba(48,27,5,0.08)]">
-                  <div>
-                    <p className="font-serif text-4xl">18 / 24</p>
-                    <p className="text-xs font-black uppercase tracking-[0.12em] text-[#314164]">Domains explored</p>
-                  </div>
-                </div>
               </div>
 
               <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs font-bold text-[#344263]">
