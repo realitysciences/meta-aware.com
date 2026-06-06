@@ -12,6 +12,7 @@ import {
   Grid2X2,
   Heart,
   Info,
+  MessageSquare,
   Mic,
   Radio,
   ShieldCheck,
@@ -50,6 +51,7 @@ const familyModules = [
 
 const sessionStyles = [
   { name: 'Guided Narrative', copy: 'AI asks structured prompts to guide a deep exploration.', icon: Mic, color: '#5b35f0' },
+  { name: 'Guided Intake Chat', copy: 'Answer structured intake prompts in a chatbox. This still builds map data.', icon: MessageSquare, color: '#176dff' },
   { name: 'Open Share', copy: 'Speak freely. AI organizes and maps your insights afterward.', icon: BookOpen, color: '#06183a' },
   { name: 'Targeted Clarification', copy: 'Short session focused on one specific area.', icon: Target, color: '#ff6b18' },
   { name: 'Reflection Follow-Up', copy: 'Respond to a prior reflection or report insight.', icon: Sparkles, color: '#0f8a77' },
@@ -204,6 +206,10 @@ function SelectedSessionPanel() {
         <Mic className="h-5 w-5" />
         Start Mother Function Session
       </Link>
+      <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="mt-2 inline-flex w-full items-center justify-center gap-3 rounded-lg border border-[#b9c9ff] bg-white px-5 py-3 text-sm font-black text-[#174fbe]">
+        <MessageSquare className="h-5 w-5" />
+        Start as Guided Intake Chat
+      </Link>
 
       <p className="mt-4 flex justify-center gap-2 text-center text-xs font-semibold leading-5 text-[#173563]">
         <ShieldCheck className="h-4 w-4 shrink-0" />
@@ -288,6 +294,35 @@ export default function VoiceSessionPage() {
               <button className="inline-flex w-full items-center justify-center rounded-lg border border-[#d7c6ae] bg-white px-4 py-3 text-sm font-black">Choose Another Session</button>
               <p className="text-center text-[11px] font-semibold text-[#6b7280]">Last session: Apr 28</p>
             </div>
+
+            <Card className="mt-4 grid gap-4 border-[#cbd8ff] bg-[#f7f9ff] p-4 shadow-none lg:grid-cols-[0.68fr_1.32fr] lg:items-center">
+              <div>
+                <p className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#176dff]">
+                  <MessageSquare className="h-4 w-4" />
+                  Prefer typing?
+                </p>
+                <h3 className="mt-2 font-serif text-2xl">Use Guided Intake Chat</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-[#344263]">
+                  Tell Meta-Aware by text instead of voice. The AI asks structured intake questions and turns your answers into source material for your map.
+                </p>
+              </div>
+              <div className="rounded-xl border border-[#d8e1ff] bg-white p-3">
+                <div className="rounded-lg bg-[#eef3ff] p-3 text-xs font-semibold leading-5 text-[#173563]">
+                  <strong className="block text-[#06183a]">Meta-Aware intake prompt</strong>
+                  What do you remember most about your mother&apos;s emotional availability?
+                </div>
+                <textarea
+                  className="mt-3 min-h-[86px] w-full rounded-lg border border-[#d8e1ff] bg-white px-3 py-2 text-sm font-semibold outline-none placeholder:text-[#8d96aa] focus:border-[#176dff]"
+                  placeholder="Type your answer here to build this part of your map..."
+                />
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-[11px] font-semibold text-[#6b7280]">This is a Mapping Session intake, not general AI chat.</p>
+                  <Link href="/voice-session/family-system/mother-function?style=guided-intake-chat" className="inline-flex items-center gap-2 rounded-lg bg-[#176dff] px-4 py-2.5 text-xs font-black text-white">
+                    Start Guided Intake Chat <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </Card>
           </Card>
 
           <Card className="p-5">
