@@ -22,17 +22,16 @@ const navItems = [
   { label: 'Dashboard', href: '/dashboard' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'The 24-Domain Map', href: '#the-24-domain-map' },
+  { label: 'Why Different', href: '#why-different' },
   { label: 'Reports', href: '#reports' },
   { label: 'For Professionals', href: '#for-professionals' },
   { label: 'About', href: '#about' },
-  { label: 'Resources', href: '#resources' },
-  { label: 'Pricing', href: '#pricing' },
 ]
 
 const trustItems = [
   { icon: ShieldCheck, title: '100% Private', copy: 'Your data is encrypted and never shared.' },
-  { icon: Brain, title: 'AI With Boundaries', copy: 'Insightful, not invasive. Designed for clarity, not diagnosis.' },
-  { icon: Sparkles, title: 'Built on ReLoHu', copy: 'A whole-person mapping methodology.' },
+  { icon: Brain, title: 'AI With Boundaries', copy: 'Designed for reflection and pattern clarity, not diagnosis.' },
+  { icon: Sparkles, title: 'Built on ReLoHu', copy: 'A method for mapping how experience routes through a whole person.' },
   { icon: Lock, title: 'You are in Control', copy: 'You decide what to share, what to explore, and when to go deeper.' },
   { icon: CircleUserRound, title: 'Yours Alone', copy: 'Your story. Your pace. Your transformation.' },
 ]
@@ -61,7 +60,25 @@ const inputItems = [
   { icon: FileText, title: 'Artifacts', copy: 'Photos, documents, notes and messages add historical evidence.' },
   { icon: Sparkles, title: 'Reflections', copy: 'Every unit returns insight that builds self-awareness.' },
   { icon: BarChart3, title: 'Reports', copy: 'Domain reports reveal patterns and themes across your life.' },
-  { icon: X, title: 'Synthesis Threads', copy: 'Meta-Aware connects the dots across domains.' },
+  { icon: X, title: 'Synthesis Threads', copy: 'Meta-Aware tracks where the same pattern reappears under different names.' },
+]
+
+const differenceItems = [
+  {
+    icon: Brain,
+    title: 'Not just an AI summary',
+    copy: 'Most tools restate what you said. Meta-Aware looks for the routes underneath: where experience enters, what it activates, and how it moves across your life.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Not a personality test',
+    copy: 'You are not reduced to a type. Your Atlas shows living patterns across family, love, identity, body, work, meaning, and more.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Not advice without context',
+    copy: 'Advice assumes insight can travel cleanly into action. Meta-Aware helps reveal where truth gets rerouted through fear, loyalty, shame, or protection.',
+  },
 ]
 
 const professionalCards = [
@@ -128,22 +145,23 @@ export default function HomePage() {
         <section className="grid gap-4 pt-[74px] sm:gap-7 sm:pt-[82px] md:grid-cols-[0.35fr_0.65fr] md:items-stretch">
           <div className="flex flex-col justify-start pb-3 pt-0 sm:min-h-[470px] md:pl-4">
             <p className="mb-3 max-w-[430px] text-sm font-black uppercase tracking-[0.18em] text-[#a45f0d]">
-              A private voice-reflection app
+              Private voice reflection. Whole-person mapping.
             </p>
             <h1 className="font-serif text-[clamp(2.65rem,10vw,3.55rem)] leading-[0.94] text-[#06183a] md:text-[clamp(3.45rem,3.25vw,4.15rem)] xl:text-[4.35rem]">
               Speak your life
               <br />
-              into a map of
+              into a map of how
               <br />
-              <span className="italic text-[#a45f0d]">yourself.</span>
+              <span className="italic text-[#a45f0d]">you work.</span>
               <span className="ml-5 align-middle text-[0.45em] not-italic text-[#b87518]">✦</span>
             </h1>
             <p className="mt-5 max-w-[440px] text-base font-semibold leading-7 sm:mt-6 sm:text-[18px]">
-              Meta-Aware turns guided voice sessions into personal reflections, a Whole-Person Atlas, and context Reality Scientist AI can use to reflect with you more precisely.
+              Meta-Aware turns guided voice sessions into a living map of how experience moves through you: your patterns, relationships, reactions, choices, and next truths.
             </p>
             <div className="mt-4 space-y-2 text-sm font-semibold leading-6 sm:text-[16px]">
               <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />Speak privately and receive a structured reflection.</p>
-              <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />Watch your life map and AI context get clearer over time.</p>
+              <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />See where the same pattern reappears across your life.</p>
+              <p className="flex gap-3"><Check className="mt-1 h-4 w-4 shrink-0 rounded-full border border-[#a45f0d] p-[2px] text-[#a45f0d]" />Watch your Atlas and AI context get clearer over time.</p>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:flex sm:flex-wrap">
               <Link href="/signup" className="inline-flex min-w-0 items-center gap-2 rounded-[9px] bg-[#06183a] px-3 py-3 text-xs font-bold text-white sm:min-w-[162px] sm:gap-3 sm:px-4 sm:py-4 sm:text-sm">
@@ -198,7 +216,7 @@ export default function HomePage() {
                   className="mx-auto h-36 w-auto object-contain drop-shadow-[0_18px_32px_rgba(0,0,0,0.38)] sm:h-[172px] xl:h-[188px]"
                 />
                 <h2 className="mt-2 text-base font-black text-[#f1bc39]">2. Your Atlas Gets Clearer</h2>
-                <p className="mx-auto mt-2 max-w-[250px] text-sm leading-6 text-white/92">Your map grows across 24 domains with every insight, reflection, and artifact.</p>
+                <p className="mx-auto mt-2 max-w-[250px] text-sm leading-6 text-white/92">Your map shows how experience routes through 24 domains with every insight, reflection, and artifact.</p>
               </div>
 
               <div className="hidden h-[132px] items-center justify-center text-white/80 md:flex xl:h-[150px]">
@@ -211,13 +229,13 @@ export default function HomePage() {
                   <MessageSquare className="h-10 w-10 sm:h-14 sm:w-14" />
                 </div>
                 <h2 className="mt-4 text-base font-black text-[#f1bc39]">3. Reality Scientist AI Understands You Better</h2>
-                <p className="mx-auto mt-2 max-w-[230px] text-sm leading-6 text-white/92">It starts with what it knows. Every session makes it more personal, precise, and useful.</p>
+                <p className="mx-auto mt-2 max-w-[230px] text-sm leading-6 text-white/92">It starts with what it knows. Every session helps it reflect from your actual patterns, not generic advice.</p>
               </div>
             </div>
             <div className="mt-5 rounded-[22px] border border-white/25 px-4 py-3 text-center text-base leading-7 sm:px-5 sm:text-lg">
               The more you share, the <span className="font-bold text-[#f1bc39]">clearer your Atlas becomes.</span>
               <br />
-              The clearer your Atlas becomes, the <span className="font-bold text-[#f1bc39]">better Reality Scientist AI can reflect with you.</span>
+              The clearer your Atlas becomes, the <span className="font-bold text-[#f1bc39]">more precisely Reality Scientist AI can reflect with you.</span>
             </div>
           </section>
         </section>
@@ -235,6 +253,31 @@ export default function HomePage() {
             </div>
           ))}
         </CardShell>
+
+        <section id="why-different" className="mt-4 grid gap-4 md:grid-cols-[0.36fr_0.64fr]">
+          <CardShell className="bg-[#06183a] p-5 text-white sm:p-7">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#f0a638]">Why Meta-Aware is different</p>
+            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">It does not just summarize your story. It maps how experience moves through you.</h2>
+            <p className="mt-5 text-base font-semibold leading-7 text-white/82">
+              Visible symptoms are not the whole map. Anxiety, overexplaining, avoidance, anger, people-pleasing, and stuckness are often the surface of a deeper routing pattern.
+            </p>
+            <p className="mt-4 rounded-[14px] border border-white/20 bg-white/8 p-4 text-lg font-black leading-7 text-[#f1bc39]">
+              This is not who you are. This is how your system learned to route experience.
+            </p>
+          </CardShell>
+
+          <div className="grid gap-4 lg:grid-cols-3">
+            {differenceItems.map((item) => (
+              <CardShell key={item.title} className="p-5 sm:p-6">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#fff2df] text-[#a45f0d]">
+                  <item.icon className="h-8 w-8" />
+                </div>
+                <h3 className="mt-5 font-serif text-2xl">{item.title}</h3>
+                <p className="mt-3 text-sm font-semibold leading-7 text-[#44506b]">{item.copy}</p>
+              </CardShell>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-4 grid gap-4 md:grid-cols-[0.62fr_0.38fr]">
           <CardShell id="how-it-works" className="p-4 sm:p-6">
@@ -256,7 +299,9 @@ export default function HomePage() {
             <div>
               <h2 className="font-serif text-2xl sm:text-3xl">The 24-Domain Map</h2>
               <p className="mt-3 text-[15px] font-bold leading-6">A complete picture of you.</p>
-              <p className="mt-4 text-[15px] font-semibold leading-7 text-[#44506b]">Family, attachment, identity, body, work, meaning, adaptation, and more.</p>
+              <p className="mt-4 text-[15px] font-semibold leading-7 text-[#44506b]">
+                Family, attachment, identity, body, work, meaning, adaptation, and more. The map helps reveal where the same pattern keeps appearing under different names.
+              </p>
               <a href="#the-24-domain-map" className="mt-5 inline-flex items-center gap-2 rounded-[8px] border border-[#d7c6ae] bg-white px-4 py-3 text-sm font-bold">
                 Explore the 24-Domain Map <ArrowRight className="h-4 w-4" />
               </a>
@@ -274,11 +319,11 @@ export default function HomePage() {
         <section className="mt-4 grid gap-4 md:grid-cols-[0.48fr_0.52fr]">
           <CardShell className="p-4 sm:p-6">
             <h2 className="text-center font-serif text-2xl sm:text-3xl">Talk to Reality Scientist AI from day one.</h2>
-            <p className="mt-2 text-center text-[15px] font-semibold">It is available now, and it gets sharper the more it knows about you.</p>
+            <p className="mt-2 text-center text-[15px] font-semibold">It is available now, and it gets sharper as your map reveals how experience routes through you.</p>
             <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-3 sm:gap-5">
               {[
                 ['Low Resolution', 'After your first session, it can reflect from the first signals you share.', '#3447ff'],
-                ['Medium Resolution', 'After more sessions, it begins connecting patterns across domains.', '#0e8a69'],
+                ['Medium Resolution', 'After more sessions, it begins seeing how patterns route across domains.', '#0e8a69'],
                 ['High Resolution', 'After deeper mapping, it can reflect from your Atlas, artifacts, reports, and synthesis threads.', '#4b3dce'],
               ].map(([title, copy, color]) => (
                 <div key={title} className="rounded-[12px] border border-[#eadfce] bg-white/70 p-4">
@@ -295,7 +340,7 @@ export default function HomePage() {
             <div className="mt-5 flex items-center gap-4 rounded-[12px] bg-[#f2edf5] p-4 text-sm font-bold">
               <MessageSquare className="h-8 w-8 shrink-0 text-[#2430a3]" />
               Ask about decisions, relationships, patterns, emotions, or next steps.
-              <span className="font-black">Your context grows. Your AI gets clearer.</span>
+              <span className="font-black">Your context grows. Your AI gets less generic.</span>
             </div>
           </CardShell>
 
@@ -315,7 +360,7 @@ export default function HomePage() {
               <p className="mt-1 text-center text-sm font-semibold">The most complete map of yourself you may ever have.</p>
               <div className="mt-5 border-l border-[#c3781c] pl-4 sm:mt-6 sm:pl-7">
                 <p className="text-sm font-semibold leading-6">
-                  Built from your voice sessions, artifacts, reflections, domain reports, and synthesis threads, the Whole-Person Atlas becomes the final comprehensive report of your life across all 24 domains.
+                  Built from your voice sessions, artifacts, reflections, domain reports, and synthesis threads, the Whole-Person Atlas shows more than what happened to you. It shows how your system learned to route love, fear, conflict, ambition, grief, safety, and belonging.
                 </p>
                 <ul className="mt-4 space-y-1.5 text-sm font-bold">
                   {atlasDomains.map((domain) => (
@@ -336,6 +381,7 @@ export default function HomePage() {
         <section className="mt-4 grid gap-4 md:grid-cols-[0.41fr_0.36fr_0.23fr]">
           <CardShell className="p-4 sm:p-6">
             <h2 className="font-serif text-xl sm:text-2xl">Every input strengthens your map and your AI.</h2>
+            <p className="mt-2 text-sm font-semibold leading-6 text-[#44506b]">Each input gives Meta-Aware more signal for detecting cross-domain patterns and routing loops.</p>
             <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-5 sm:gap-3">
               {inputItems.map((item) => (
                 <div key={item.title} className="text-xs font-semibold leading-5">
@@ -351,7 +397,7 @@ export default function HomePage() {
 
           <CardShell className="p-4 sm:p-6">
             <h2 className="font-serif text-xl sm:text-2xl">Resolution increases over time.</h2>
-            <p className="mt-2 text-sm font-semibold leading-6">The more you share, the clearer your Atlas becomes and the more personal Reality Scientist AI gets.</p>
+            <p className="mt-2 text-sm font-semibold leading-6">The more you share, the clearer your Atlas becomes: hubs, loops, dead zones, overused pathways, and integration points start to emerge.</p>
             <div className="mt-6 grid grid-cols-2 gap-4 text-xs font-bold sm:mt-8 sm:grid-cols-4 sm:gap-3">
               {['Basic', 'Clear', 'Deep', 'High-Fidelity'].map((stage, index) => (
                 <div key={stage}>
