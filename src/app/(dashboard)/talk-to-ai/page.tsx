@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowRight,
   BookOpen,
@@ -139,6 +139,14 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
 
 export default function RealityScientistAIPage() {
   const [mode, setMode] = useState<'voice' | 'text'>('voice')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const m = params.get('mode')
+    if (m === 'chat' || m === 'text') setMode('text')
+    else if (m === 'voice') setMode('voice')
+  }, [])
+
   const [context, setContext] = useState('whole-map')
   const [purpose, setPurpose] = useState('reflect')
   const [voiceActive, setVoiceActive] = useState(false)
