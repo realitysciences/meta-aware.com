@@ -48,7 +48,7 @@ const lowerNavItems = [
   { label: 'Timeline & Comparisons', href: '/timeline', icon: Clock },
   { label: 'Connections & Patterns', href: '/patterns', icon: Link2 },
   { label: 'Guidance & Exercises', href: '/guidance', icon: BookOpen },
-  { label: 'How It Works', href: '/#how-it-works', icon: CircleHelp },
+  { label: 'How It Works', href: '/how-it-works', icon: CircleHelp },
   { label: 'Settings', href: '/dashboard/settings', icon: Settings },
 ]
 
