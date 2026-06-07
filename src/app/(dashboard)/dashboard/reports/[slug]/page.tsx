@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Clock, FileText, Sparkles } from 'lucide-react'
+import { Clock, FileText, Sparkles } from 'lucide-react'
 
 const reportMeta: Record<string, { title: string; type: string; date: string }> = {
   'identity-domain-insight':           { title: 'Identity Domain Insight',           type: 'Domain Insight Report',         date: 'Generated May 14, 2025' },
@@ -8,9 +8,10 @@ const reportMeta: Record<string, { title: string; type: string; date: string }> 
   'quarterly-growth-report':           { title: 'Quarterly Growth Report',           type: 'Quarterly Growth Report',       date: 'Q1 2025 · Jan – Mar' },
 }
 
-export default function ReportPlaceholderPage({ params }: { params: { slug: string } }) {
-  const meta = reportMeta[params.slug] ?? {
-    title: params.slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+export default async function ReportPlaceholderPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const meta = reportMeta[slug] ?? {
+    title: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
     type: 'Report',
     date: 'Generated recently',
   }
