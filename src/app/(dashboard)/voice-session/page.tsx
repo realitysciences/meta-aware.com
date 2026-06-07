@@ -222,8 +222,8 @@ function SelectedSessionPanel() {
 export default function VoiceSessionPage() {
   return (
     <div className="min-h-screen bg-[#fffaf2] px-4 py-4 text-[#06183a] lg:px-6">
-      <header className="mb-4 grid gap-4 xl:grid-cols-[1fr_auto_auto] xl:items-center">
-        <div className="flex items-start gap-4">
+      <header className="mb-4 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center">
+        <div className="flex min-w-0 items-start gap-4">
           <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-[#5b35f0] text-white shadow-[0_12px_28px_rgba(91,53,240,0.22)]">
             <Mic className="h-8 w-8" />
           </div>
@@ -235,14 +235,16 @@ export default function VoiceSessionPage() {
             </p>
           </div>
         </div>
-        <Link href="/dashboard/self-map" className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#d7c6ae] bg-white/82 px-4 py-3 text-sm font-black">
-          <BookOpen className="h-4 w-4" />
-          View My Self-Map
-          <ArrowRight className="h-4 w-4" />
-        </Link>
-        <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d3b98f] bg-white/70 text-[#06183a]" aria-label="Voice session help">
-          <CircleHelp className="h-5 w-5" />
-        </button>
+        <div className="flex flex-wrap items-center gap-3 xl:flex-nowrap xl:justify-end">
+          <Link href="/dashboard/self-map" className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#d7c6ae] bg-white/82 px-4 py-3 text-sm font-black">
+            <BookOpen className="h-4 w-4" />
+            View My Self-Map
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <button className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#d3b98f] bg-white/70 text-[#06183a]" aria-label="Voice session help">
+            <CircleHelp className="h-5 w-5" />
+          </button>
+        </div>
       </header>
 
       <div className="grid items-start gap-4 xl:grid-cols-[1fr_360px] 2xl:grid-cols-[1fr_390px]">
