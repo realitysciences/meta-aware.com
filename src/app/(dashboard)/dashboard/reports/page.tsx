@@ -137,7 +137,7 @@ function ReportCard({
   icon: Icon, iconColor, iconBg, title, isNew = false,
   description, meta, signal, mapUpdates,
   includes, previewLabel, previewValue, previewSub,
-  borderColor,
+  borderColor, href,
 }: {
   icon: React.ElementType; iconColor: string; iconBg: string
   title: string; isNew?: boolean; description: string
@@ -146,7 +146,7 @@ function ReportCard({
   mapUpdates: number
   includes: string[]
   previewLabel: string; previewValue: string; previewSub: string
-  borderColor: string
+  borderColor: string; href?: string
 }) {
   return (
     <article className="overflow-hidden rounded-[14px] border border-[#ead7b9] bg-white shadow-[0_4px_12px_rgba(48,27,5,0.04)]"
@@ -158,7 +158,11 @@ function ReportCard({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="font-serif text-lg font-bold leading-snug text-[#06183a]">{title}</h2>
+            {href ? (
+              <Link href={href} className="font-serif text-lg font-bold leading-snug text-[#06183a] hover:text-[#6c37c6] transition-colors">{title}</Link>
+            ) : (
+              <h2 className="font-serif text-lg font-bold leading-snug text-[#06183a]">{title}</h2>
+            )}
             {isNew && (
               <span className="rounded-full border border-[#e0d4f8] bg-[#f5f0ff] px-2 py-0.5 text-[10px] font-black text-[#6c37c6]">NEW</span>
             )}
@@ -192,9 +196,16 @@ function ReportCard({
 
       {/* Actions */}
       <div className="flex items-center gap-2 border-t border-[#ead7b9] bg-[#faf6f0] px-5 py-3">
-        <button className="flex items-center gap-2 rounded-[8px] bg-[#6c37c6] px-4 py-2 text-sm font-black text-white hover:bg-[#5a2aae] transition-colors">
-          Open Report
-        </button>
+        {href ? (
+          <Link href={href}
+            className="flex items-center gap-2 rounded-[8px] bg-[#6c37c6] px-4 py-2 text-sm font-black text-white hover:bg-[#5a2aae] transition-colors">
+            Open Report
+          </Link>
+        ) : (
+          <button className="flex items-center gap-2 rounded-[8px] bg-[#6c37c6] px-4 py-2 text-sm font-black text-white hover:bg-[#5a2aae] transition-colors">
+            Open Report
+          </button>
+        )}
         <button className="flex items-center gap-1.5 rounded-[8px] border border-[#ead7b9] bg-white px-3 py-2 text-sm font-semibold text-[#344263] hover:bg-white transition-colors">
           <Eye className="h-3.5 w-3.5" /> Preview
         </button>
@@ -396,6 +407,7 @@ export default function ReportsPage() {
             includes={['3 repeated themes', '4 suggested map updates', '1 unresolved signal']}
             previewLabel="Strongest theme" previewValue="Identity & Boundaries" previewSub="Seen in 8 reflections"
             borderColor="#6c37c6"
+            href="/dashboard/reports/weekly-reflection-report"
           />
 
           <ReportCard
@@ -425,6 +437,7 @@ export default function ReportsPage() {
             includes={['Emotional tone overview', '5 key insights', '2 pattern connections']}
             previewLabel="Dominant theme" previewValue="Clarity Through Expression" previewSub="Seen in this session"
             borderColor="#0f8a77"
+            href="/dashboard/reports/voice-session-summary"
           />
 
           <ReportCard
