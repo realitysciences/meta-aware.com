@@ -98,14 +98,14 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
     >
       <div className="px-4 pb-4 pt-5">
         <div className="flex items-start justify-between gap-2">
-          <Link href="/dashboard" aria-label="Meta-Aware dashboard">
-            <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-16 w-auto object-contain" priority />
+          <Link href="/dashboard" aria-label="Meta-Aware dashboard" className="block">
+            <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-14 w-auto object-contain object-left" priority />
+            <p className="mt-0.5 text-xs font-semibold text-[#314164]">Your self-map. Your freedom.</p>
           </Link>
           <button onClick={() => setMobileOpen(false)} className="mt-1 rounded-full p-1 text-[#06183a]/50 hover:bg-[#f4eadb] md:hidden" aria-label="Close menu">
             <X size={20} />
           </button>
         </div>
-        <p className="-mt-1 pl-1 text-xs font-semibold text-[#314164]">Speak. Reflect. Understand. Transform.</p>
       </div>
 
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
