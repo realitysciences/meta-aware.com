@@ -423,6 +423,7 @@ export default function ReportsPage() {
             includes={['Core beliefs summary', '3 key patterns', '2 growth edges']}
             previewLabel="Top pattern" previewValue="Translator / Bridge Role" previewSub="Seen in 7 reflections"
             borderColor="#176dff"
+            href="/dashboard/reports/identity-domain-insight"
           />
 
           <ReportCard
@@ -453,6 +454,7 @@ export default function ReportsPage() {
             includes={['Pattern definition', '4 supporting behaviors', 'Impact across domains']}
             previewLabel="Pattern strength" previewValue="High" previewSub="Seen across 6 domains"
             borderColor="#c97c1e"
+            href="/dashboard/reports/people-pleasing-pattern-report"
           />
 
           <ReportCard
@@ -468,6 +470,7 @@ export default function ReportsPage() {
             includes={['Atlas coverage breakdown', 'Top 5 strong domains', 'Top 5 growth domains']}
             previewLabel="Overall signal" previewValue="Medium" previewSub="Steady growth"
             borderColor="#d4a017"
+            href="/dashboard/reports/whole-person-atlas-progress"
           />
 
           <ReportCard
@@ -483,6 +486,7 @@ export default function ReportsPage() {
             includes={['Growth over time', 'Key shifts and drivers', "What's emerging next"]}
             previewLabel="Growth trend" previewValue="Upward" previewSub="Strong in 7 domains"
             borderColor="#6c37c6"
+            href="/dashboard/reports/quarterly-growth-report"
           />
 
         </div>
