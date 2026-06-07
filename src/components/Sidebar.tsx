@@ -96,11 +96,11 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
         ${mobileOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
       `}
     >
-      <div className="px-4 pb-4 pt-5">
+      <div className="border-b border-[#ead7b9]/70 px-4 pb-4 pt-5">
         <div className="flex items-start justify-between gap-2">
-          <Link href="/dashboard" aria-label="Meta-Aware dashboard" className="block">
-            <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="h-14 w-auto object-contain object-left" priority />
-            <p className="mt-0.5 text-xs font-semibold text-[#314164]">Your self-map. Your freedom.</p>
+          <Link href="/dashboard" aria-label="Meta-Aware dashboard" className="block w-full max-w-[190px]">
+            <Image src="/assets/meta-aware-logo.png" alt="Meta-Aware" width={2508} height={627} className="mx-auto h-14 w-auto object-contain" priority />
+            <p className="mt-1 text-center text-[11px] font-semibold tracking-[0.01em] text-[#314164]">Your self-map. Your freedom.</p>
           </Link>
           <button onClick={() => setMobileOpen(false)} className="mt-1 rounded-full p-1 text-[#06183a]/50 hover:bg-[#f4eadb] md:hidden" aria-label="Close menu">
             <X size={20} />
