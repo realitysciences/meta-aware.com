@@ -288,21 +288,19 @@ export default function NotificationsPage() {
           </div>
 
           {/* Column headers */}
-          <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 border-b border-[#ead7b9] bg-[#faf6f0] px-5 py-2.5">
+          <div className="grid grid-cols-[1fr_56px_56px_56px_100px] gap-3 border-b border-[#ead7b9] bg-[#faf6f0] px-5 py-2.5">
             <div>
               <p className="text-[11px] font-black text-[#344263]">Category</p>
               <p className="text-[10px] font-semibold text-[#a0a8b8]">What you&apos;ll get notified about</p>
             </div>
             {(['Email','In-App','Push'] as const).map((col) => (
-              <div key={col} className="w-14 text-center">
+              <div key={col} className="flex justify-center">
                 <p className="text-[11px] font-black text-[#344263]">{col}</p>
               </div>
             ))}
-            <div className="w-24 text-center">
-              <div className="flex items-center justify-center gap-1">
-                <p className="text-[11px] font-black text-[#344263]">Digest</p>
-                <CircleHelp className="h-3 w-3 text-[#a0a8b8]" />
-              </div>
+            <div className="flex items-center justify-center gap-1">
+              <p className="text-[11px] font-black text-[#344263]">Digest</p>
+              <CircleHelp className="h-3 w-3 text-[#a0a8b8]" />
             </div>
           </div>
 
@@ -313,7 +311,7 @@ export default function NotificationsPage() {
               const row  = notifs[key]
               const isLocked = key === 'security'
               return (
-                <div key={key} className={`grid grid-cols-[1fr_auto_auto_auto_auto] items-center gap-4 px-5 py-3 ${isLocked ? 'bg-[#fafef8]' : 'hover:bg-[#faf6f0]'} transition-colors`}>
+                <div key={key} className={`grid grid-cols-[1fr_56px_56px_56px_100px] items-center gap-3 px-5 py-3 ${isLocked ? 'bg-[#fafef8]' : 'hover:bg-[#faf6f0]'} transition-colors`}>
                   {/* Category */}
                   <div className="flex min-w-0 items-start gap-2.5">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full" style={{ background: meta.iconBg }}>
@@ -334,22 +332,22 @@ export default function NotificationsPage() {
                   </div>
 
                   {/* Email */}
-                  <div className="flex w-14 justify-center">
+                  <div className="flex justify-center">
                     <Toggle on={row.email} onChange={(v) => setRow(key, { email: v })} disabled={isLocked} />
                   </div>
 
                   {/* In-App */}
-                  <div className="flex w-14 justify-center">
+                  <div className="flex justify-center">
                     <Toggle on={row.inApp} onChange={(v) => setRow(key, { inApp: v })} disabled={isLocked} />
                   </div>
 
                   {/* Push */}
-                  <div className="flex w-14 justify-center">
+                  <div className="flex justify-center">
                     <Toggle on={row.push} onChange={(v) => setRow(key, { push: v })} disabled={isLocked} />
                   </div>
 
                   {/* Digest */}
-                  <div className="w-24">
+                  <div>
                     {row.digest === 'none' ? (
                       <span className="block text-center text-sm font-semibold text-[#a0a8b8]">–</span>
                     ) : (
