@@ -167,7 +167,7 @@ export default function Sidebar({ fullName, email, photoURL, plan }: SidebarProp
         <div className="rounded-xl border border-[#ead7b9] bg-white/72 p-3">
           <p className="flex items-center gap-2 text-xs font-black text-[#a45f0d]"><Lock className="h-4 w-4" />Private. Secure. Yours alone.</p>
           <p className="mt-2 text-xs leading-5 text-[#314164]">End-to-end encrypted. Your data is never shared.</p>
-          <Link href="/privacy" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#d3b98f] bg-white/80 px-3 py-2 text-xs font-bold">
+          <Link href="/dashboard/settings/privacy-data" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#d3b98f] bg-white/80 px-3 py-2 text-xs font-bold">
             View Privacy Center <ShieldCheck className="h-4 w-4" />
           </Link>
         </div>
